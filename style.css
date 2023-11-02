@@ -1,5 +1,7 @@
 body {
     margin: 0;
+    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    background: #F1F1F1;
 }
 
 .header {
@@ -63,7 +65,7 @@ body {
 .banner {
     width: 100%;
     height: 70vh;
-    background: url(imagens/image\ 3cr7-messi.png);
+    background: url(imagens/messi-cr7-chess-copy.jpg);
     background-size: cover;
     /* background-repeat: no-repeat; */
 }
@@ -82,6 +84,65 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
+}
+
+.sobreNos{
+    margin: 0px;
+    width: 100%;
+    
+}
+
+.sobreNos .container {
+    width: 80%;
+    height: 1000px;
+    margin: 100px 10% 0px;
+}
+
+.sobreNos .container .secao {
+    display: flex;
+    justify-content: space-between;
+    
+}
+
+.sobreNos .container .secao .card {
+    width: 400px;
+    height: 400px;
+    border-radius: 24px;
+    box-shadow: 0px 4px 8px 0px rgba(0, 0, 0, 0.15);
+    background: white;
+}
+
+.sobreNos .container .secao .card .conteudo {
+    width: 90%;
+    height: 90%;
+    margin: 5% 5%;
+    display: block;
+    /* flex-direction: column; */
+}
+
+.sobreNos .container .secao .card .conteudo .texto {
+    margin-top: 15px;
+}
+
+.sobreNos .container .secao .card .conteudo .icone {
+    background: #F1F1F1;
+    border-radius: 80px;
+    width: 40px;
+    height: 40px;
+    padding: 8px 9px;
+    justify-content: center;
+    align-items: center;
+}
+
+.sobreNos .container .secao .card .conteudo .texto h2 {
+    margin-top: 0px;
+    font-weight: 600;
+}
+
+.sobreNos .container .secao .card .conteudo .texto span {
+    color: #666;
+    font-size: 24px;
+    font-weight: 600;
 }
 
 /* img {
