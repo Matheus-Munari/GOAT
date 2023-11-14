@@ -1,0 +1,68 @@
+body {
+    margin: 0px;
+    height: 100vh;
+    display: flex;
+}
+
+.inputs {
+    background: #303030;
+    width: 40vw;
+    height: 100%;
+}
+
+.inputs .container {
+    width: 80%;
+    margin: 0 10%;
+}
+
+.inputs .container .formulario {
+    display: flex;
+    flex-direction: column;
+    margin-top: 15%;
+}
+
+.inputs .container .formulario .navbar {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+}
+
+.inputs .container .formulario .formLogin {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+    margin-top: 10% ;
+    height: 250px;
+}
+
+.inputs .container .formulario .navbar .loginBtn button{
+    background: transparent;
+    border: none;
+    color: #FEFDFD;
+    font-size: 36px;
+}
+
+.inputs .container .formulario .navbar .cadastroBtn button{
+    background: transparent;
+    border: none;
+    color: #FEFDFD;
+    font-size: 36px;
+}
+
+.inputs .container .formulario .formLogin input {
+    background: transparent;
+    padding: 20px 25px;
+    border: 1px solid white;
+    border-radius: 10px;
+}
+
+.imagem {
+    background: url(imagens/Messi-copa.jpg);
+    width: 60vw;
+    background-size: cover;
+    background-position: center;
+}
+
+.page {
+    display: flex;
+}
