@@ -41,7 +41,7 @@ body {
     justify-content: space-between;
     margin-top: 10% ;
     height: 250px;
-    gap: 32px;
+    gap: 10%;
 }
 
 .inputs .container .formulario .formCadastroEndereco {
@@ -50,7 +50,7 @@ body {
     justify-content: space-between;
     margin-top: 10%;
     height: 250px;
-    gap: 32px;
+    gap: 10%;
 }
 
 .inputs .container .formulario .navbar .loginBtn button{
@@ -98,6 +98,16 @@ body {
     cursor: pointer;
 }
 
+.inputs .container .formulario .formCadastroEndereco button {
+    padding: 10px;
+    border-radius: 10px;
+    width: 100%;
+    background: #1f1f1f;
+    color: #f0f0f0;
+    font-size: 20px;
+    border: none;
+    cursor: pointer;
+}
 
 .imagem {
     background: url(imagens/Messi-copa.jpg);
@@ -135,7 +145,7 @@ body {
 
 .controleFormulario i {
     position: absolute;
-    top: 50%;
+    top: 49%;
     right: 5px;
     visibility: hidden;
 }

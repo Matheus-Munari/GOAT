@@ -69,14 +69,14 @@
                         </div>
                         <div class="controleFormulario">
                             <label for="senha">Senha</label>
-                            <input type="text" placeholder="Digite uma senha" id="i_cadastro_senha">
+                            <input type="password" placeholder="Digite uma senha" id="i_cadastro_senha">
                             <i class="fa-solid fa-circle-exclamation"></i>
                             <i class="fa-solid fa-circle-check"></i>
                             <small>Mensagem de erro</small>
                         </div>
                         <div class="controleFormulario">
                             <label for="confirmacaoSenha">Confirmação de senha</label>
-                            <input type="text" placeholder="Confirme sua senha" id="i_cadastro_confirmacao_senha">
+                            <input type="password" placeholder="Confirme sua senha" id="i_cadastro_confirmacao_senha">
                             <i class="fa-solid fa-circle-exclamation"></i>
                             <i class="fa-solid fa-circle-check"></i>
                             <small>Mensagem de erro</small>
@@ -84,10 +84,34 @@
                         <button onclick="validarInformacoesUsuario()">Cadastro 1/2</button>
                     </div>
                     <div class="formCadastroEndereco" id="form_cadastroEndereco">
-                        <input type="text" placeholder="CEP">
-                        <input type="text" placeholder="Rua">
-                        <input type="text" placeholder="Número">
-                        <input type="text" placeholder="Bairro">
+                        <div class="controleFormulario">
+                            <label for="cep">CEP</label>
+                            <input type="text" placeholder="Digite seu CEP">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="Rua">Rua</label>
+                            <input type="text" placeholder="Digite o nome da rua onde mora">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="numero">Número</label>
+                            <input type="text" placeholder="Digite o número da rua onde mora">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="bairro">Bairro</label>
+                            <input type="text" placeholder="Digite o bairro onde mora">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
                         <button onclick="finalizarCadastro()">Finalizar cadastro</button>
                     </div>
                 </div>
