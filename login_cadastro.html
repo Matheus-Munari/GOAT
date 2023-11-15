@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="login_cadastro.css">
+    <script src="cadastro.js"></script>
     <title>Login/Cadastro</title>
 </head>
 <body onload="underline()">
@@ -24,21 +25,70 @@
                         </div>
                     </div>
                     <div class="formLogin" id="form_login">
-                        <input type="text" placeholder="Email">
-                        <input type="password" placeholder="Senha">
-                        <div class="lembrarSenha">
+                        <div class="controleFormulario">
+                            <label for="email">Email</label>
+                            <input type="text" placeholder="Digite seu Email">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="senha">Senha</label>
+                            <input type="password" placeholder="Digite a sua senha">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <!-- <div class="lembrarSenha">
                             <input type="checkbox">
                             <span>Lembrar senha</span>
-                        </div>
+                        </div> -->
                         <button>Logar</button>
                     </div>
                     <div class="formCadastro" id="form_cadastro">
-                        <input type="text" placeholder="Nome de usuário">
-                        <input type="date" >
-                        <input type="text" placeholder="Email">
-                        <input type="text" placeholder="Digite uma senha">
-                        <input type="text" placeholder="Confirme sua senha">
-                        <button>Cadastro 1/2</button>
+                        <div class="controleFormulario">
+                            <label for="usuario">Nome de usuário</label>
+                            <input type="text" placeholder="Digite  um nome de usuario" id="i_cadastro_nome">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="nascimento">Data de nascimento</label>
+                            <input type="date" id="i_cadastro_nascimento">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="email">Email</label>
+                            <input type="text" placeholder="Digite um email válido" id="i_cadastro_email">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="senha">Senha</label>
+                            <input type="text" placeholder="Digite uma senha" id="i_cadastro_senha">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <div class="controleFormulario">
+                            <label for="confirmacaoSenha">Confirmação de senha</label>
+                            <input type="text" placeholder="Confirme sua senha" id="i_cadastro_confirmacao_senha">
+                            <i class="fa-solid fa-circle-exclamation"></i>
+                            <i class="fa-solid fa-circle-check"></i>
+                            <small>Mensagem de erro</small>
+                        </div>
+                        <button onclick="validarInformacoesUsuario()">Cadastro 1/2</button>
+                    </div>
+                    <div class="formCadastroEndereco" id="form_cadastroEndereco">
+                        <input type="text" placeholder="CEP">
+                        <input type="text" placeholder="Rua">
+                        <input type="text" placeholder="Número">
+                        <input type="text" placeholder="Bairro">
+                        <button onclick="finalizarCadastro()">Finalizar cadastro</button>
                     </div>
                 </div>
                 
@@ -47,6 +97,9 @@
         <div class="imagem">
         </div>
     </div>
+    <script 
+        src="https://kit.fontawesome.com/c213e24a43.js" crossorigin="anonymous">
+    </script>
 </body>
 </html>
 
@@ -55,7 +108,8 @@
         div_botao_cadastro.style.borderBottom = "2px solid white";
         div_botao_login.style.border = "none";
         form_cadastro.style.display = "flex";
-        form_login.style.display = "none"
+        form_login.style.display = "none";
+        form_cadastroEndereco.style.display = "none"
 
     }
 
@@ -64,9 +118,16 @@
         div_botao_cadastro.style.border = "none";
         form_cadastro.style.display = "none";
         form_login.style.display = "flex";
+        form_cadastroEndereco.style.display = "none"
     }
 
     function underline() {
         div_botao_login.style.borderBottom = "2px solid white";
+    }
+
+    function cadastroEndereco() {
+        form_cadastroEndereco.style.display = "flex";
+        form_cadastro.style.display = "none"
+
     }
 </script>
