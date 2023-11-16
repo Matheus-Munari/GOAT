@@ -69,7 +69,7 @@ body {
 .banner {
     width: 100%;
     height: 70vh;
-    background: url(imagens/messi-cr7-chess-copy.jpg);
+    background: url(../imagens/messi-cr7-chess-copy.jpg);
     background-size: cover;
     /* background-repeat: no-repeat; */
 }

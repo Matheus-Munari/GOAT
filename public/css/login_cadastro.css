@@ -110,7 +110,7 @@ body {
 }
 
 .imagem {
-    background: url(imagens/Messi-copa.jpg);
+    background: url(../imagens/Messi-copa.jpg);
     width: 70vw;
     background-size: cover;
     background-position: center;
