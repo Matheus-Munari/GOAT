@@ -8,6 +8,7 @@
 
   <title>AquaTech | Cadastro</title>
 
+  
   <script src="./js/sessao.js"></script>
   <script src="./js/cadastro.js"></script>
 
@@ -124,15 +125,15 @@
                     <div class="controleFormulario">
                         <label for="email">Email</label>
                         <input type="text" placeholder="Digite seu Email">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
+                        <!-- <i class="fa-solid fa-circle-exclamation"></i>
+                        <i class="fa-solid fa-circle-check"></i> -->
                         <small>Mensagem de erro</small>
                     </div>
                     <div class="controleFormulario">
                         <label for="senha">Senha</label>
                         <input type="password" placeholder="Digite a sua senha">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
+                        <!-- <i class="fa-solid fa-circle-exclamation"></i>
+                        <i class="fa-solid fa-circle-check"></i> -->
                         <small>Mensagem de erro</small>
                     </div>
                     <!-- <div class="lembrarSenha">
@@ -182,33 +183,33 @@
                 <div class="formCadastroEndereco" id="form_cadastroEndereco">
                     <div class="controleFormulario">
                         <label for="cep">CEP</label>
-                        <input type="text" placeholder="Digite seu CEP">
+                        <input type="text" placeholder="Digite seu CEP" id="i_cadastro_cep">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <i class="fa-solid fa-circle-check"></i>
                         <small>Mensagem de erro</small>
                     </div>
                     <div class="controleFormulario">
                         <label for="Rua">Rua</label>
-                        <input type="text" placeholder="Digite o nome da rua onde mora">
+                        <input type="text" placeholder="Digite o nome da rua onde mora" id="i_cadastro_rua">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <i class="fa-solid fa-circle-check"></i>
                         <small>Mensagem de erro</small>
                     </div>
                     <div class="controleFormulario">
                         <label for="numero">Número</label>
-                        <input type="text" placeholder="Digite o número da rua onde mora">
+                        <input type="text" placeholder="Digite o número da rua onde mora" id="i_cadastro_numero">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <i class="fa-solid fa-circle-check"></i>
                         <small>Mensagem de erro</small>
                     </div>
                     <div class="controleFormulario">
                         <label for="bairro">Bairro</label>
-                        <input type="text" placeholder="Digite o bairro onde mora">
+                        <input type="text" placeholder="Digite o bairro onde mora" id="i_cadastro_bairro">
                         <i class="fa-solid fa-circle-exclamation"></i>
                         <i class="fa-solid fa-circle-check"></i>
                         <small>Mensagem de erro</small>
                     </div>
-                    <button onclick="finalizarCadastro()">Finalizar cadastro</button>
+                    <button onclick="cadastrar()">Finalizar cadastro</button>
                 </div>
             </div>
             
@@ -257,68 +258,79 @@
   // Minhas funções FIM
 
   function cadastrar() {
-    aguardar();
+    // aguardar();
 
     //Recupere o valor da nova input pelo nome do id
     // Agora vá para o método fetch logo abaixo
-    var nomeVar = nome_input.value;
-    var emailVar = email_input.value;
-    var senhaVar = senha_input.value;
-    var confirmacaoSenhaVar = confirmacao_senha_input.value;
-    var empresaVar = listaEmpresas.value;
-    var cpfVar = cpf_input.value;
-    if (
-      nomeVar == "" ||
-      emailVar == "" ||
-      senhaVar == "" ||
-      confirmacaoSenhaVar == "" ||
-      empresaVar == "" ||
-      cpfVar == ""
-    ) {
-      cardErro.style.display = "block";
-      mensagem_erro.innerHTML =
-        "(Mensagem de erro para todos os campos em branco)";
+    var nomeVar = i_cadastro_nome.value;
+    var emailVar = i_cadastro_email.value;
+    var senhaVar = i_cadastro_senha.value;
+    var confirmacaoSenhaVar = i_cadastro_confirmacao_senha.value;
+    // var empresaVar = listaEmpresas.value;
+    var dtNascVar = i_cadastro_nascimento.value;
+    var ruaVar = i_cadastro_rua.value;
+    var cepVar = i_cadastro_cep.value;
+    var numeroVar = i_cadastro_numero.value;
+    var bairroVar = i_cadastro_bairro.value;
 
-      finalizarAguardar();
-      return false;
-    } else {
-      if(nomeVar.length <= 1) {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML =
-        "O campo nome tem que ter mais de 1 letra";
-        finalizarAguardar();
-        return false;
-      }
-      if(emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML =
-        "O campo email tem que conter um `@` e um `.`";
-        finalizarAguardar();
-        return false;
-      }
-      if(senhaVar.length <= 6) {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML =
-        "O campo senha tem que conter mais de 6 caractereres"
-        finalizarAguardar();
-        return false;
-      }
-      if(confirmacaoSenhaVar != senhaVar) {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML =
-        "O campo `Confirmaçao da Senha` deve ser igual ao campo `Senha`";
-        finalizarAguardar();
-        return false;
-      }
-      if(cpfVar.length != 14) {
-        cardErro.style.display = "block";
-        mensagem_erro.innerHTML =
-        "O campo CPF tem que ter 14 caracteres";
-        finalizarAguardar();
-        return false;
-      }
-      setInterval(sumirMensagem, 5000);
-    }
+    console.log(dtNascVar);
+    console.log(ruaVar);
+    console.log(cepVar);
+    console.log(numeroVar)
+    console.log(bairroVar)
+
+    // if (
+    //   nomeVar == "" ||
+    //   emailVar == "" ||
+    //   senhaVar == "" ||
+    //   confirmacaoSenhaVar == "" ||
+    //   empresaVar == "" ||
+    //   dtNascVar == ""
+    // ) {
+    //   // cardErro.style.display = "block";
+    //   // mensagem_erro.innerHTML =
+    //   //   "(Mensagem de erro para todos os campos em branco)";
+
+    //   // finalizarAguardar();
+    //   return false;
+    // } else {
+    //   if(nomeVar.length <= 1) {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML =
+    //     "O campo nome tem que ter mais de 1 letra";
+    //     // finalizarAguardar();
+    //     return false;
+    //   }
+    //   if(emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML =
+    //     "O campo email tem que conter um `@` e um `.`";
+    //     // finalizarAguardar();
+    //     return false;
+    //   }
+    //   if(senhaVar.length <= 6) {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML =
+    //     "O campo senha tem que conter mais de 6 caractereres"
+    //     // finalizarAguardar();
+    //     return false;
+    //   }
+    //   if(confirmacaoSenhaVar != senhaVar) {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML =
+    //     "O campo `Confirmaçao da Senha` deve ser igual ao campo `Senha`";
+    //     // finalizarAguardar();
+    //     return false;
+    //   }
+    //   if(dtNascVar.length != 14) {
+    //     cardErro.style.display = "block";
+    //     mensagem_erro.innerHTML =
+    //     "O campo CPF tem que ter 14 caracteres";
+    //     // finalizarAguardar();
+    //     return false;
+    //   }
+    //   setInterval(sumirMensagem, 5000);
+    // }
     
 
     // Enviando o valor da nova input
@@ -333,12 +345,20 @@
         nomeServer: nomeVar,
         emailServer: emailVar,
         senhaServer: senhaVar,
-        empresaServer: empresaVar,
-        cpfServer: cpfVar
+        // empresaServer: empresaVar,
+        dtNascServer: dtNascVar,
+        // ruaServer: ruaVar,
+        // cepServer: cepVar,
+        // bairroServer: bairroVar,
+        // numeroServer: numeroVar
       }),
     })
       .then(function (resposta) {
         console.log("resposta: ", resposta);
+        
+        setTimeout(() => {
+          window.location = "login.html";
+        }, "2000");
 
         if (resposta.ok) {
           cardErro.style.display = "block";
@@ -346,19 +366,16 @@
           mensagem_erro.innerHTML =
             "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
 
-          setTimeout(() => {
-            window.location = "login.html";
-          }, "2000");
 
           limparFormulario();
-          finalizarAguardar();
+          // finalizarAguardar();
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";
         }
       })
       .catch(function (resposta) {
         console.log(`#ERRO: ${resposta}`);
-        finalizarAguardar();
+        // finalizarAguardar();
       });
 
     return false;
