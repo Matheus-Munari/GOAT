@@ -95,7 +95,7 @@
             </div>
             <div class="main-conteudo">
                 
-                <div class="main-grafico">
+                <div class="main-grafico-canvas">
                     <div class="main-grafico-header">
                         <p>Gols/Ano de carreira</p>
                         <select id="i_select_data" onchange="atualizarGrafico()">
@@ -112,12 +112,31 @@
                             <img src="../imagens/messi-art.png" class="img-icone">
                             <span>Lionel Messi</span>
                             <div class="main-estatisticas" id="div_estatisticas_messi">
+                                <table id="tabela_messi">
+                                    <tr>
+                                        <th>Temporada</th>
+                                        <th>gols</th>
+                                        <th>Assists</th>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                         <div class="main-jogadores">
-                            <img src="../imagens/messi-art.png" class="img-icone">
+                            <img src="../imagens/ronaldo-art.png" class="img-icone">
                             <span>Cristiano Ronaldo</span>
+                            <!-- <table>
+                                <th>Temporada</th>
+                                <th>gols</th>
+                                <th>Assists</th>
+                            </table> -->
                             <div class="main-estatisticas" id="div_estatisticas_cr7">
+                                <table id="tabela_cr7">
+                                    <tr>
+                                        <th>Temporada</th>
+                                        <th>gols</th>
+                                        <th>Assists</th>
+                                    </tr>
+                                </table>
                             </div>
                         </div>
                     </div>
@@ -132,56 +151,88 @@
 <script>
 
     var anosCarreira = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
-    var golsCarreiraMessi = [8, 17, 16, 38, 47, 53, 73, 60, 41, 58, 41, 54, 45, 51, 31, 38, 11, 32]
-    var assistenciasCarreiraMessi = [8, 3, 16, 19, 12, 27, 32, 17, 14, 31, 24, 20, 20, 22, 27, 14, 15, 25]
+    var golsCarreiraMessi = [8, 17, 16, 38, 47, 53, 73, 60, 41, 58, 41, 54, 45, 51, 31, 38, 11, 32, 0, 0, 0]
+    var assistenciasCarreiraMessi = [8, 3, 16, 19, 12, 27, 32, 17, 14, 31, 24, 20, 20, 22, 27, 14, 15, 25, 0, 0, 0]
     var posicaoBolaDeOuroCarreiraMessi = []
     var golsCarreiraCr7 = [5, 6, 9, 12, 23, 42, 26, 33, 53, 60, 55, 51, 61, 51, 42, 44, 28, 37, 36, 24, 17]
     var assistenciasCarreiraCr7 = [6, 8, 9, 8, 14, 8, 12, 10, 18, 15, 13, 17, 23, 15, 12, 8, 11, 7, 4, 3, 4]
     
+    const data = {
+        labels: anosCarreira,
+        datasets: [{
+            label: 'Messi',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            data: golsCarreiraMessi
+        },
+        {
+            label: 'CR7',
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            data: golsCarreiraCr7
+        }
+    ]
+    };
+
+    const configLinha = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    const myChart = new Chart(
+    document.getElementById('myChart'),
+    configLinha
+)
     
+    // let myChart;
+    // myChart = document.getElementById('myChart');
     
-    
+    // new Chart(myChart, {
+    //     type: 'line',
+    //     data: {
+    //     labels: anosCarreira,
+    //     datasets: [{
+    //         label: "Messi",
+    //         backgroundColor: "blue",
+    //         borderColor: "blue",
+    //         data: golsCarreiraMessi,
+    //         borderWidth: 1,
+    //         fill: false,
+    //         tension: 0.3
+    //     }, 
+    //     {
+    //         label: "CR7",
+    //         backgroundColor: "red",
+    //         borderColor: "red",
+    //         data: golsCarreiraCr7,
+    //         borderWidth: 1,
+    //         fill: false,
+    //         tension: 0.3
+    //     }]
+    //     },
+    //     options: {
+    //     scales: {
+    //         y: {
+    //         beginAtZero: true
+    //         }
+    //     }
+    //     }
+    // });
     function criarGrafico() {
         
-        const myChart = document.getElementById('myChart');
-        
-        new Chart(myChart, {
-            type: 'line',
-            data: {
-            labels: anosCarreira,
-            datasets: [{
-                label: "Messi",
-                backgroundColor: "blue",
-                borderColor: "blue",
-                data: golsCarreiraMessi,
-                borderWidth: 1,
-                fill: false,
-                tension: 0.3
-            }, 
-            {
-                label: "CR7",
-                backgroundColor: "red",
-                borderColor: "red",
-                data: golsCarreiraCr7,
-                borderWidth: 1,
-                fill: false,
-                tension: 0.3
-            }]
-            },
-            options: {
-            scales: {
-                y: {
-                beginAtZero: true
-                }
-            }
-            }
-        });
-            }
+    }
 
     function atualizarGrafico() {
         var optionValue = Number(i_select_data.value);
-
-        myChart.config.data.datasets[0].data = assistenciasCarreiraMessi
+        
+        if(optionValue == 1) {
+            myChart.data.datasets[0].data = golsCarreiraMessi; 
+            myChart.data.datasets[1].data = golsCarreiraCr7;    
+        } else if(optionValue == 2) {
+            myChart.data.datasets[0].data = assistenciasCarreiraMessi; 
+            myChart.data.datasets[1].data = assistenciasCarreiraCr7;
+        }
 
         myChart.update();
         console.log("oi");
@@ -189,20 +240,21 @@
 
     function carregarEstatisticas() {
 
+
         for(var c = 0; c < anosCarreira.length; c++) {
             
-            div_estatisticas_messi.innerHTML += 
+            tabela_messi.innerHTML += 
             `
-            <br><span>${anosCarreira[c]}ºTemporada ${golsCarreiraMessi[c]}</span>  <span>${assistenciasCarreiraMessi[c]}</span><br>
+            <tr><td>${anosCarreira[c]}<td> <td>${golsCarreiraMessi[c]}</td>  <td>${assistenciasCarreiraMessi[c]}</td></tr>
             `
 
         }
 
         for(var c = 0; c < anosCarreira.length; c++) {
             
-            div_estatisticas_cr7.innerHTML += 
+            tabela_cr7.innerHTML += 
             `
-            <br><span>${anosCarreira[c]}ºTemporada ${golsCarreiraCr7[c]}</span>  <span>${assistenciasCarreiraCr7[c]}</span><br>
+            <tr><td>${anosCarreira[c]}º</td> <td>${golsCarreiraCr7[c]}</td>  <td>${assistenciasCarreiraCr7[c]}</td></tr>
             `
 
         }
