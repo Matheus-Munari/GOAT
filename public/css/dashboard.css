@@ -176,3 +176,40 @@ body {
     width: 39vw;
     height: 80%;
 }
+
+.main-detalhe {
+    background-color: #ffffff;
+    box-sizing: border-box;
+    border: 1px solid #d2d2d3;
+    border-radius: 5px;
+    box-shadow: 0 6px 7px -4px rgba(0, 0, 0, 0.2);
+    width: 39vw;
+    height: 80%;
+    max-height: 80%;
+    display: flex;
+}
+
+.main-jogadores {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 50%;
+    height: 100%;
+}
+
+.main-grafico-header {
+    display: flex;
+    justify-content: space-between;
+}
+
+.main-estatisticas > span {
+    padding: 0;
+    margin: 0;
+}
+
+.main-estatisticas {
+    overflow: hidden;
+    overflow-y: scroll;
+    max-height: 400px;
+    width: 200px;
+}

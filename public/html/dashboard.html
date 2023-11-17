@@ -8,8 +8,10 @@
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
       rel="stylesheet">
       <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
 </head>
-<body>
+<body onload="criarGrafico(), carregarEstatisticas()">
     <div class="gridContainer">
 
         <!-- Header -->
@@ -92,11 +94,31 @@
 
             </div>
             <div class="main-conteudo">
+                
                 <div class="main-grafico">
-
+                    <div class="main-grafico-header">
+                        <p>Gols/Ano de carreira</p>
+                        <select id="i_select_data" onchange="atualizarGrafico()">
+                            <option value="1">Gols</option>
+                            <option value="2">Assistencias</option>
+                            <option value="3">Posição na bola de ouro</option>
+                        </select>
+                    </div>
+                    <canvas id="myChart"></canvas>
                 </div>
-                <div class="main-grafico">
-
+                <div class="main-detalhe">
+                    <div class="main-jogadores">
+                        <img src="../imagens/messi-art.png" class="img-icone">
+                        <span>Lionel Messi</span>
+                        <div class="main-estatisticas" id="div_estatisticas_messi">
+                        </div>
+                    </div>
+                    <div class="main-jogadores">
+                        <img src="../imagens/messi-art.png" class="img-icone">
+                        <span>Cristiano Ronaldo</span>
+                        <div class="main-estatisticas" id="div_estatisticas_cr7">
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -104,3 +126,85 @@
         
 </body>
 </html>
+
+<script>
+
+    var anosCarreira = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+    var golsCarreiraMessi = [8, 17, 16, 38, 47, 53, 73, 60, 41, 58, 41, 54, 45, 51, 31, 38, 11, 32]
+    var assistenciasCarreiraMessi = [8, 3, 16, 19, 12, 27, 32, 17, 14, 31, 24, 20, 20, 22, 27, 14, 15, 25]
+    var posicaoBolaDeOuroCarreiraMessi = []
+    var golsCarreiraCr7 = [5, 6, 9, 12, 23, 42, 26, 33, 53, 60, 55, 51, 61, 51, 42, 44, 28, 37, 36, 24, 17]
+    var assistenciasCarreiraCr7 = [6, 8, 9, 8, 14, 8, 12, 10, 18, 15, 13, 17, 23, 15, 12, 8, 11, 7, 4, 3, 4]
+    
+    
+    
+    
+    function criarGrafico() {
+        
+        const myChart = document.getElementById('myChart');
+        
+        new Chart(myChart, {
+            type: 'line',
+            data: {
+            labels: anosCarreira,
+            datasets: [{
+                label: "Messi",
+                backgroundColor: "blue",
+                borderColor: "blue",
+                data: golsCarreiraMessi,
+                borderWidth: 1,
+                fill: false,
+                tension: 0.3
+            }, 
+            {
+                label: "CR7",
+                backgroundColor: "red",
+                borderColor: "red",
+                data: golsCarreiraCr7,
+                borderWidth: 1,
+                fill: false,
+                tension: 0.3
+            }]
+            },
+            options: {
+            scales: {
+                y: {
+                beginAtZero: true
+                }
+            }
+            }
+        });
+            }
+
+    function atualizarGrafico() {
+        var optionValue = Number(i_select_data.value);
+
+        myChart.config.data.datasets[0].data = assistenciasCarreiraMessi
+
+        myChart.update();
+        console.log("oi");
+    }
+
+    function carregarEstatisticas() {
+
+        for(var c = 0; c < anosCarreira.length; c++) {
+            
+            div_estatisticas_messi.innerHTML += 
+            `
+            <br><span>${anosCarreira[c]}ºTemporada ${golsCarreiraMessi[c]}</span>  <span>${assistenciasCarreiraMessi[c]}</span><br>
+            `
+
+        }
+
+        for(var c = 0; c < anosCarreira.length; c++) {
+            
+            div_estatisticas_cr7.innerHTML += 
+            `
+            <br><span>${anosCarreira[c]}ºTemporada ${golsCarreiraCr7[c]}</span>  <span>${assistenciasCarreiraCr7[c]}</span><br>
+            `
+
+        }
+
+    }
+
+</script>
