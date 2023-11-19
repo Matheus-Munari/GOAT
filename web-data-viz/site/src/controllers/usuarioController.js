@@ -24,7 +24,8 @@ function autenticar(req, res) {
                             idUsuario: resultadoAutenticar[0].idUsuario,
                             email: resultadoAutenticar[0].email,
                             nome: resultadoAutenticar[0].nome,
-                            senha: resultadoAutenticar[0].senha
+                            senha: resultadoAutenticar[0].senha,
+                            fkJogador: resultadoAutenticar[0].fkJogador
                             // aquarios: resultadoAquarios
                         });
 
@@ -71,6 +72,7 @@ function cadastrar(req, res) {
     var cep = req.body.cepServer;
     var bairro = req.body.bairroServer;
     var numero = req.body.numeroServer;
+    var jogador = req.body.jogadorServer;
     
 
     // Faça as validações dos valores
@@ -92,11 +94,13 @@ function cadastrar(req, res) {
         res.status(400).send("O Bairro está undefined!");
     }   else if(numero == undefined) {
         res.status(400).send("O Número está undefined!");
+    }   else if(jogadorServer == undefined) {
+        res.status(400).send("O Jogador está undefined!");
     }
         {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, dtNasc, rua, cep, bairro, numero)
+        usuarioModel.cadastrar(nome, email, senha, dtNasc, rua, cep, bairro, numero, jogador)
             .then(
                 function (resultado) {
                     res.json(resultado);

@@ -8,10 +8,19 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AquaTech | Dashboards</title>
 
-    <link rel="stylesheet" href="../css/style.css">
-    <link rel="stylesheet" href="../css/dashboards.css">
+    <!-- <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboards.css"> -->
     <script src="../js/sessao.js"></script>
     <script src="./../js/alerta.js"></script>
+
+    <!-- Links da minha dashboard -->
+    <link rel="stylesheet" href="../css/dashboard.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+      <!-- Fim dos links -->
 
     <link rel="preconnect" href="https://fonts.gstatic.com">
     <link
@@ -27,7 +36,7 @@
 
 <!-- <body onload=" atualizarFeed()"> -->
 
-<body>
+<!-- <body>
 
     <div class="janela">
         <div class="header-left">
@@ -63,94 +72,232 @@
 
         <div class="dash">
             <div id="alerta">
-            </div>
+            </div> -->
 
-            <div class="btns-dash" id="btnAquario">
+            <!-- <div class="btns-dash" id="btnAquario"> -->
                 <!-- O gráfico é chamado de acordo com o id (fk_aquario) do banco  -->
-            </div>
+            <!-- </div>
             <div id="graficos">
             </div>
         </div>
-    </div>
+    </div> -->
 
 
+<!-- </body> -->
+
+<body onload="criarGrafico(), carregarEstatisticas(), mudarFoto()">
+    <div class="gridContainer">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-esquerda">
+                <span class="material-icons">search</span>
+            </div>
+            <div class="header-direira">
+                <span class="material-icons">notifications</span>
+                <span class="material-icons">email</span>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-titulo" id="sidebar_titulo">
+                <!-- <img src="../assets/imagens/messi-art.png" class="img-icone">
+                <span id="b_usuario">NOME USUARIO</span> -->
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <span class="material-icons">dashboard</span> Dashboard
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons">inbox</span> Histórico
+                </li>
+                <li class="sidebar-list-item">
+                    <span class="material-icons">logout</span> Sair
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main -->
+        <div class="main-container">
+            <div class="main-titulo">
+                <p class="font-weight-bold">DASHBOARD</p>
+            </div>
+
+            <div class="main-cards">
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">TEXTO</p>
+                        <span class="material-symbols-outlined">
+                            analytics
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">500</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">Messizetes</p>
+                        <span class="material-symbols-outlined text-green">
+                            trending_up
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">500</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">Ronaldetes</p>
+                        <span class="material-symbols-outlined text-red">
+                            trending_down
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">500</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">Ronaldetes</p>
+                        <span class="material-symbols-outlined text-red">
+                            trending_down
+                            </span>
+                    </div>
+                    <span class="text-primary font-weight-bold">500</span>
+                </div>
+
+            </div>
+            <div class="main-conteudo">
+                
+                <div class="main-grafico-canvas">
+                    <div class="main-grafico-header">
+                        <p>Gols/Ano de carreira</p>
+                        <select id="i_select_data" onchange="atualizarGrafico()">
+                            <option value="1">Gols</option>
+                            <option value="2">Assistencias</option>
+                            <option value="3">Posição na bola de ouro</option>
+                        </select>
+                    </div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="main-grafico">
+                    <div class="main-detalhe">
+                        <div class="main-jogadores">
+                            <img src="../imagens/messi-art.png" class="img-icone">
+                            <span>Lionel Messi</span>
+                            <div class="main-estatisticas" id="div_estatisticas_messi">
+                                <table id="tabela_messi">
+                                    <tr>
+                                        <th>Temporada</th>
+                                        <th>gols</th>
+                                        <th>Assists</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                        <div class="main-jogadores">
+                            <img src="../imagens/ronaldo-art.png" class="img-icone">
+                            <span>Cristiano Ronaldo</span>
+                            <!-- <table>
+                                <th>Temporada</th>
+                                <th>gols</th>
+                                <th>Assists</th>
+                            </table> -->
+                            <div class="main-estatisticas" id="div_estatisticas_cr7">
+                                <table id="tabela_cr7">
+                                    <tr>
+                                        <th>Temporada</th>
+                                        <th>gols</th>
+                                        <th>Assists</th>
+                                    </tr>
+                                </table>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>       
+        
 </body>
 
 </html>
 
 <script>
-    b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+    // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
 
-    window.onload = exibirAquariosDoUsuario();
+    // window.onload = exibirAquariosDoUsuario();
 
-    function exibirAquariosDoUsuario() {
-        var aquarios = JSON.parse(sessionStorage.AQUARIOS);
-        aquarios.forEach(item => {
-            document.getElementById("btnAquario").innerHTML += `
-            <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
-            `
+    // function exibirAquariosDoUsuario() {
+    //     var aquarios = JSON.parse(sessionStorage.AQUARIOS);
+    //     aquarios.forEach(item => {
+    //         document.getElementById("btnAquario").innerHTML += `
+    //         <button class="btn-chart" onclick="exibirAquario(${item.id})" id="btnAquario${item.id}">${item.descricao}</button>
+    //         `
 
-            document.getElementById("graficos").innerHTML += `
-                <div id="grafico${item.id}" class="display-none">
-                    <h3 class="tituloGraficos">
-                        <span id="tituloAquario${item.id}">${item.descricao}</span>
-                    </h3>
-                    <div class="graph">
-                        <canvas id="myChartCanvas${item.id}"></canvas>
-                    </div>
-                    <div class="label-captura">
-                        <p id="avisoCaptura${item.id}" style="color: white"></p>
-                    </div>
-                </div>
-            `
+    //         document.getElementById("graficos").innerHTML += `
+    //             <div id="grafico${item.id}" class="display-none">
+    //                 <h3 class="tituloGraficos">
+    //                     <span id="tituloAquario${item.id}">${item.descricao}</span>
+    //                 </h3>
+    //                 <div class="graph">
+    //                     <canvas id="myChartCanvas${item.id}"></canvas>
+    //                 </div>
+    //                 <div class="label-captura">
+    //                     <p id="avisoCaptura${item.id}" style="color: white"></p>
+    //                 </div>
+    //             </div>
+    //         `
 
-            obterDadosGrafico(item.id)
-        });
+    //         obterDadosGrafico(item.id)
+    //     });
 
-        if (aquarios.length > 0) {
-            exibirAquario(aquarios[0].id)
-        }
-    }
+    //     if (aquarios.length > 0) {
+    //         exibirAquario(aquarios[0].id)
+    //     }
+    // }
 
-    function alterarTitulo(idAquario) {
-        var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
-        var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
-        tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
-    }
+    // function alterarTitulo(idAquario) {
+    //     var tituloAquario = document.getElementById(`tituloAquario${idAquario}`)
+    //     var descricao = JSON.parse(sessionStorage.AQUARIOS).find(item => item.id == idAquario).descricao;
+    //     tituloAquario.innerHTML = "Últimas medidas de Temperatura e Umidade do <span style='color: #e6005a'>" + descricao + "</span>"
+    // }
 
-    function exibirAquario(idAquario) {
-        let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
+    // function exibirAquario(idAquario) {
+    //     let todosOsGraficos = JSON.parse(sessionStorage.AQUARIOS);
 
-        for (i = 0; i < todosOsGraficos.length; i++) {
-            // exibindo - ou não - o gráfico
-            if (todosOsGraficos[i].id != idAquario) {
-                let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
-                if (elementoAtual.classList.contains("display-block")) {
-                    elementoAtual.classList.remove("display-block")
-                }
-                elementoAtual.classList.add("display-none")
+    //     for (i = 0; i < todosOsGraficos.length; i++) {
+    //         // exibindo - ou não - o gráfico
+    //         if (todosOsGraficos[i].id != idAquario) {
+    //             let elementoAtual = document.getElementById(`grafico${todosOsGraficos[i].id}`)
+    //             if (elementoAtual.classList.contains("display-block")) {
+    //                 elementoAtual.classList.remove("display-block")
+    //             }
+    //             elementoAtual.classList.add("display-none")
 
-                // alterando estilo do botão
-                let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
-                if (btnAtual.classList.contains("btn-pink")) {
-                    btnAtual.classList.remove("btn-pink")
-                }
-                btnAtual.classList.add("btn-white")
-            }
-        }
+    //             // alterando estilo do botão
+    //             let btnAtual = document.getElementById(`btnAquario${todosOsGraficos[i].id}`)
+    //             if (btnAtual.classList.contains("btn-pink")) {
+    //                 btnAtual.classList.remove("btn-pink")
+    //             }
+    //             btnAtual.classList.add("btn-white")
+    //         }
+    //     }
 
-        // exibindo - ou não - o gráfico
-        let graficoExibir = document.getElementById(`grafico${idAquario}`)
-        graficoExibir.classList.remove("display-none")
-        graficoExibir.classList.add("display-block")
+    //     // exibindo - ou não - o gráfico
+    //     let graficoExibir = document.getElementById(`grafico${idAquario}`)
+    //     graficoExibir.classList.remove("display-none")
+    //     graficoExibir.classList.add("display-block")
 
-        // alterando estilo do botão
-        let btnExibir = document.getElementById(`btnAquario${idAquario}`)
-        btnExibir.classList.remove("btn-white")
-        btnExibir.classList.add("btn-pink")
-    }
+    //     // alterando estilo do botão
+    //     let btnExibir = document.getElementById(`btnAquario${idAquario}`)
+    //     btnExibir.classList.remove("btn-white")
+    //     btnExibir.classList.add("btn-pink")
+    // }
+
+
 
     // O gráfico é construído com três funções:
     // 1. obterDadosGrafico -> Traz dados do Banco de Dados para montar o gráfico da primeira vez
@@ -314,4 +461,132 @@
             });
 
     }
+
+    var anosCarreira = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21]
+    var golsCarreiraMessi = [8, 17, 16, 38, 47, 53, 73, 60, 41, 58, 41, 54, 45, 51, 31, 38, 11, 32, 0, 0, 0]
+    var assistenciasCarreiraMessi = [8, 3, 16, 19, 12, 27, 32, 17, 14, 31, 24, 20, 20, 22, 27, 14, 15, 25, 0, 0, 0]
+    var posicaoBolaDeOuroCarreiraMessi = []
+    var golsCarreiraCr7 = [5, 6, 9, 12, 23, 42, 26, 33, 53, 60, 55, 51, 61, 51, 42, 44, 28, 37, 36, 24, 17]
+    var assistenciasCarreiraCr7 = [6, 8, 9, 8, 14, 8, 12, 10, 18, 15, 13, 17, 23, 15, 12, 8, 11, 7, 4, 3, 4]
+    
+    const data = {
+        labels: anosCarreira,
+        datasets: [{
+            label: 'Messi',
+            backgroundColor: 'red',
+            borderColor: 'red',
+            data: golsCarreiraMessi
+        },
+        {
+            label: 'CR7',
+            backgroundColor: 'blue',
+            borderColor: 'blue',
+            data: golsCarreiraCr7
+        }
+    ]
+    };
+
+    const configLinha = {
+        type: 'line',
+        data: data,
+        options: {}
+    };
+
+    const myChart = new Chart(
+    document.getElementById('myChart'),
+    configLinha
+)
+    
+    // let myChart;
+    // myChart = document.getElementById('myChart');
+    
+    // new Chart(myChart, {
+    //     type: 'line',
+    //     data: {
+    //     labels: anosCarreira,
+    //     datasets: [{
+    //         label: "Messi",
+    //         backgroundColor: "blue",
+    //         borderColor: "blue",
+    //         data: golsCarreiraMessi,
+    //         borderWidth: 1,
+    //         fill: false,
+    //         tension: 0.3
+    //     }, 
+    //     {
+    //         label: "CR7",
+    //         backgroundColor: "red",
+    //         borderColor: "red",
+    //         data: golsCarreiraCr7,
+    //         borderWidth: 1,
+    //         fill: false,
+    //         tension: 0.3
+    //     }]
+    //     },
+    //     options: {
+    //     scales: {
+    //         y: {
+    //         beginAtZero: true
+    //         }
+    //     }
+    //     }
+    // });
+    function criarGrafico() {
+        
+    }
+
+    function atualizarGrafico() {
+        var optionValue = Number(i_select_data.value);
+        
+        if(optionValue == 1) {
+            myChart.data.datasets[0].data = golsCarreiraMessi; 
+            myChart.data.datasets[1].data = golsCarreiraCr7;    
+        } else if(optionValue == 2) {
+            myChart.data.datasets[0].data = assistenciasCarreiraMessi; 
+            myChart.data.datasets[1].data = assistenciasCarreiraCr7;
+        }
+
+        myChart.update();
+        console.log("oi");
+    }
+
+    function carregarEstatisticas() {
+
+
+        for(var c = 0; c < anosCarreira.length; c++) {
+            
+            tabela_messi.innerHTML += 
+            `
+            <tr><td>${anosCarreira[c]}<td> <td>${golsCarreiraMessi[c]}</td>  <td>${assistenciasCarreiraMessi[c]}</td></tr>
+            `
+
+        }
+
+        for(var c = 0; c < anosCarreira.length; c++) {
+            
+            tabela_cr7.innerHTML += 
+            `
+            <tr><td>${anosCarreira[c]}º</td> <td>${golsCarreiraCr7[c]}</td>  <td>${assistenciasCarreiraCr7[c]}</td></tr>
+            `
+
+        }
+
+    }
+
+    function mudarFoto() {
+        var jogadorFavorito = sessionStorage.FK_USUARIO;
+
+        if(jogadorFavorito == 1) {
+            sidebar_titulo.innerHTML +=
+            `<img src="../assets/imagens/messi-art.png" class="img-icone"> 
+            <span>${sessionStorage.NOME_USUARIO}</span>`
+        } else {
+            sidebar_titulo.innerHTML +=
+            `<img src="../assets/imagens/ronaldo-art.png" class="img-icone"> 
+            <span>${sessionStorage.NOME_USUARIO}</span>`
+        }
+
+
+    }
+
 </script>

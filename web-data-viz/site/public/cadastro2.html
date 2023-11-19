@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
+    <script src="./js/cadastro.js"></script>
+    <link rel="stylesheet" href="./css/cadastro2.css">
+    <title>Cadastro</title>
+</head>
+<body>
+    <div class="container">
+        <div class="logo">
+            <img src="./assets/imagens/image 1.png" alt="">
+            <img src="./assets/imagens/Vectorlogomarca.png">
+        </div>
+        <div class="titulo">
+            <div class="texto">
+                <h1>
+                    Calma lá meu robozão
+                </h1>
+    
+                <h2>
+                    Antes de se cadastrar precisamos saber
+                </h2>
+    
+                <p>
+                    Para você, quê é o melhor de todos os tempos?
+                </p>
+            </div>
+            <div class="escolha" id="escolha">
+                    <div class="card" id="card_messi">
+                        <img src="./assets/imagens/messi-art.png" class="messi" id="img_messi" 
+                        
+                        onclick="fotoFoco('messi')" style="width: 150px;">
+                        <span>MESSI</span>
+                    </div>
+                    <div class="card" id="card_cr7">
+                        <img src="./assets/imagens/ronaldo-art.png" class="cr7" id="img_cr7"
+                        onclick="fotoFoco('cr7')" style="width: 150px;">
+                        <span>RONALDO</span>
+                    </div>
+            </div>
+            <button onclick="cadastrar()">Cadastrar</button>
+        </div>
+    </div>
+</body>
+</html>
+
+<script>
+
+    // window.onload = alert(localStorage.getItem("nome"));
+
+    var jogadorSelecionado = 0;
+    function fotoFoco(jogador) {
+        // var jogador = document.getElementById(jogador)
+        
+        
+        if(jogador == "messi") {
+            img_messi.style.transform = "scale(1.1)";
+            img_cr7.style.transform = "scale(1)"
+            img_cr7.style.filter = "grayscale(1)"
+            img_messi.style.filter = "none"
+            jogadorSelecionado = 1;
+        } else {
+            img_cr7.style.transform = "scale(1.1)"
+            img_messi.style.transform = "scale(1)"
+            img_messi.style.filter = "grayscale(1)"
+            img_cr7.style.filter = "none"
+            jogadorSelecionado = 2;
+        }
+
+
+    }
+
+    function mostrar() {
+
+        alert(jogadorSelecionado)
+    }
+
+</script>

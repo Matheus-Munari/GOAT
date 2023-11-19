@@ -19,6 +19,7 @@ body {
     display: flex;
     flex-direction: column;
     margin-top: 15%;
+    /* gap: 24px; */
 }
 
 .inputs .container .formulario .navbar {
@@ -30,9 +31,8 @@ body {
 .inputs .container .formulario .formLogin {
     display: flex;
     flex-direction: column;
-    margin-top: 30% ;
+    margin-top: 124px;
     height: 400px;
-    max-width: 280px;
     gap: 48px;
 }
 
@@ -140,7 +140,7 @@ body {
     display: block;
     border-radius: 10px;
     font-size: 14px;
-    width: 100%;
+    width: -webkit-fill-available;
     padding: 10px;
 }
 
@@ -182,3 +182,6 @@ body {
     visibility: visible;
     color: #e74c3c;
 }
+ /* .controleFormulario .input .calendario{
+    -webkit-appearence: "none";
+ } */
