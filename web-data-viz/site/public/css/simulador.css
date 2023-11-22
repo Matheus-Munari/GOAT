@@ -1,0 +1,93 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #181818;
+    color: #fff;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.container {
+    width: 80%;
+    margin: 0 10% 0 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+}
+
+.container .cardSimulador {
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    background: inherit;   
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    height: 100%;
+}
+
+.container .cardSimulador h1 {
+    width: 100%;
+    height: 64px;
+    display: flex;
+    justify-content: center;
+}
+
+.container .cardSimulador .conteudo .cardInputs {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+}
+
+.container .cardSimulador .conteudo .cardInputs .cardInputsSeparado {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.container .cardSimulador .conteudo {
+    display: flex;
+    width: 80%;
+    margin: 0 10% 0 10%;
+}
+
+.card-grafico {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+}
+
+.grafico {
+    width: 70%;
+}
+
+.container .cardSimulador .conteudo .cardInputs .cardInputsSeparado .input input {
+    display: flex;
+    padding: 16px;
+    align-items: center;
+    align-self: stretch;
+    border-radius: 8px;
+    background: #FFF;
+    border: none;
+}
+
+.container .cardSimulador button {
+    padding: 16px 24px;
+    display: inline-flex;
+    justify-content: center;
+    align-items: center;
+    border: none;
+    border-radius: 8px;
+    background: #3f3f3f;
+    width: 10%;
+    margin-top: 24px;
+    pointer-events: none;
+}
+
+.botaoAtivo {
+    background-color: #FFF;
+    cursor: pointer;
+    pointer-events: all;
+}

@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../css/simulador.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <title>Simulador</title>
+</head>
+<body>
+    <div class="container">
+        <div class="cardSimulador">
+            <h1>Simule sua carreira</h1>
+            <div class="conteudo">
+                <div class="cardInputs">
+                    <div class="cardInputsSeparado">
+                        <div class="input">
+                            <span>Ritmo:</span><input onchange="adicionar(0)" type="text" id="input_ritmo">
+                        </div>
+                        <div class="input">
+                            <span>Finalização:</span> <input type="text" onchange="adicionar(1)" id="input_finalizacao">
+                        </div>
+                        <div class="input">
+                            <span>Passe:</span> <input type="text" onchange="adicionar(2)"
+                            id="input_passe">
+                        </div>
+                    </div>
+                    <div class="cardInputsSeparado">
+                        <div class="input">
+                            <span>Drible:</span> <input type="text" onchange="adicionar(3)"
+                            id="input_drible">
+                        </div>
+                        <div class="input">
+                            <span>Defesa:</span> <input type="text" onchange="adicionar(4)" id="input_defesa">
+                        </div>
+                        <div class="input">
+                            <span>Físico:</span> <input type="text" onchange="adicionar(5)" id="input_fisico">     
+                        </div>
+                    </div>
+                </div>
+                <div class="card-grafico">
+                    <div class="grafico">
+                        <canvas id="myChart"></canvas>
+                    </div>
+                </div>
+            </div>
+            <button id="botao_simulador" onclick="simular()">Simular</button>
+        </div>    
+    </div>
+</body>
+</html>
+
+<script>
+
+var atributos = []
+
+const config = {
+  type: 'radar',
+  data:  {
+    labels: ['Ritmo', 'Finalização', 'Passe', 'Drible', 'Defesa', 'Físico'],
+    datasets: [{
+        data: atributos,
+        backgroundColor: "transparent",
+        borderColor: "#35CFFF"
+    }],
+    backgroundColor: "#636363"
+},
+  options: {
+        scales: {
+            r: {
+                beginAtZero: true,
+                ticks: {
+                    stepSize: 5
+                },
+                max: 99,
+                min: 0
+            }
+        }
+    }
+
+  }
+;
+
+const ctx = document.getElementById('myChart')
+
+const myChart = new Chart (ctx, config)
+
+function adicionar(posicao) {
+    var atributo = 0;
+
+    if(posicao == 0) {
+        var atributo = Number(input_ritmo.value);
+    }else if(posicao == 1) {
+        var atributo = Number(input_finalizacao.value);
+    }else if(posicao == 2) {
+        var atributo = Number(input_passe.value);
+    }else if(posicao == 3) {
+        var atributo = Number(input_drible.value);
+    }else if(posicao == 4) {
+        var atributo = Number(input_defesa.value);
+    }else if(posicao == 5) {
+        var atributo = Number(input_fisico.value);
+    }
+
+    atributos[posicao] = atributo;
+
+    myChart.data.datasets[0].data = atributos;
+    myChart.update();
+
+    validarInputs();
+
+}
+
+function validarInputs() {
+    var ritmo = Number(input_ritmo.value);
+    var finalizacao = Number(input_finalizacao.value);
+    var passe = Number(input_passe.value);
+    var drible = Number(input_drible.value);
+    var defesa = Number(input_defesa.value);
+    var fisico = Number(input_fisico.value);
+
+    if(ritmo.length > 0 && finalizacao.length > 0
+        && passe.length > 0 && drible.length > 0
+        && defesa.length > 0 && fisico.length > 0) {
+            
+            botao_simulador.classList.add("botaoAtivo"); 
+    }
+
+
+
+}
+
+function simular() {
+
+    alert("oi")
+}
+
+</script>
