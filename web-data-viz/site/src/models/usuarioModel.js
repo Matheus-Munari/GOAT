@@ -22,7 +22,17 @@ function cadastrar(nome, email, senha, dtNasc, rua, cep, bairro, numero, jogador
     return database.executar(instrucao);
 }
 
+function buscar(idUsuario) {
+    var instrucao = `
+        SELECT * FROM usuario where idUsuario = ${idUsuario};
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+
+}
+
 module.exports = {
     autenticar,
-    cadastrar
+    cadastrar,
+    buscar
 };
