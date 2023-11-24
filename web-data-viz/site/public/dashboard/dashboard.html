@@ -85,7 +85,7 @@
 
 <!-- </body> -->
 
-<body onload="obterDadosJogadores(), mudarFoto(), obterContagemUsuarios()">
+<body onload="obterDadosJogadores(), mudarFoto(), obterContagemUsuarios(), underlineJog()">
     <div class="gridContainer">
 
         <!-- Header -->
@@ -181,38 +181,77 @@
                     <canvas id="myChart"></canvas>
                 </div>
                 <div class="main-grafico">
-                    <div class="main-detalhe">
-                        <div class="main-jogadores">
-                            <img src="../imagens/messi-art.png" class="img-icone">
+                    <div class="main-nav">
+                        <button id="btn_messi" onclick="mudarJogador(1)">Messi</button>
+                        <button id="btn_cr7" onclick="mudarJogador(2)">CR7</button>
+                    </div>
+                    <div class="main-infos" id="infos_messi">
+                        <div class="img-nome">
+                            <img src="../assets/imagens/imagem-messi-de-perfil.png">
                             <span>Lionel Messi</span>
-                            <div class="main-estatisticas" id="div_estatisticas_messi">
-                                <table id="tabela_messi">
-                                    <tr>
-                                        <th>Temporada</th>
-                                        <th>gols</th>
-                                        <th>Assists</th>
-                                    </tr>
-                                </table>
+                        </div>
+                        <div class="infos-jog">
+                            <div class="idade">
+                                <span>Idade</span>
+                                <span>36 anos</span>
+                            </div>
+                            <div class="altura">
+                                <span>Altura </span>
+                                <span>169cm</span>
+                            </div>
+                            <div class="peBom">
+                                <span>Pé preferido</span>
+                                <span>Esquerdo</span>
+                            </div>
+                            <div class="numeroCamisa">
+                                <span>Número da camisa</span>
+                                <span>10</span>
                             </div>
                         </div>
-                        <div class="main-jogadores">
-                            <img src="../imagens/ronaldo-art.png" class="img-icone">
+                    </div>
+
+                    <div class="main-infos" id="infos_cr7" style="display: none;">
+                        <div class="img-nome">
+                            <img src="../assets/imagens/imagem-oficial-cr7.jpg">
                             <span>Cristiano Ronaldo</span>
-                            <!-- <table>
-                                <th>Temporada</th>
-                                <th>gols</th>
-                                <th>Assists</th>
-                            </table> -->
-                            <div class="main-estatisticas" id="div_estatisticas_cr7">
-                                <table id="tabela_cr7">
-                                    <tr>
-                                        <th>Temporada</th>
-                                        <th>gols</th>
-                                        <th>Assists</th>
-                                    </tr>
-                                </table>
+                        </div>
+                        <div class="infos-jog">
+                            <div class="idade">
+                                <span>Idade</span>
+                                <span>38 anos</span>
+                            </div>
+                            <div class="altura">
+                                <span>Altura </span>
+                                <span>187cm</span>
+                            </div>
+                            <div class="peBom">
+                                <span>Pé preferido</span>
+                                <span>Direito</span>
+                            </div>
+                            <div class="numeroCamisa">
+                                <span>Número da camisa</span>
+                                <span>7</span>
                             </div>
                         </div>
+                    </div>
+                    <div class="tabela-estatistica">
+
+                           <table>
+                                <thead>
+                                    
+                                        <th>Temporada</th>
+                                        <th>Jogos</th>
+                                        <th>Gols</th>
+                                        <th>Assistencias</th>
+                                        <th>PDG</th>
+                                        <th>Gols de Penalti</th>
+                                        <th>Titiulos</th>
+                                    
+                                </thead>
+                                <tbody id="tabela_estatisticas">
+
+                                </tbody>
+                           </table> 
                     </div>
                 </div>
             </div>
@@ -224,6 +263,85 @@
 </html>
 
 <script>
+
+    function carregarEstatisticasTabela(jog) {
+
+        
+        var tb = document.getElementById("tabela_estatisticas");
+        tb.innerText = ``;
+
+        if(jog == 1) {
+            for(var i=0; i < messi.length;i++) {
+
+                // var qtdLinhas = tb.rows.length;
+                var linha = tb.insertRow();
+
+                var cellTemporada = linha.insertCell();
+                var cellJogos = linha.insertCell();
+                var cellGols = linha.insertCell();
+                var cellAssistencias = linha.insertCell();
+                var cellPpj = linha.insertCell();
+                var cellGolsPenalti = linha.insertCell();
+                var cellTitulosColetivos = linha.insertCell();
+
+                cellTemporada.innerText = messi[i].temporada;
+                cellJogos.innerText = messi[i].jogos;
+                cellGols.innerText = messi[i].gols;
+                cellAssistencias.innerText = messi[i].assistencias;
+                cellPpj.innerText = messi[i].ppj;
+                cellGolsPenalti.innerText = messi[i].golsPenalti;
+                cellTitulosColetivos.innerText = messi[i].titulosColetivos;
+            }
+        } else {
+
+            for(var i=0; i < cr7.length;i++) {
+
+                // var qtdLinhas = tb.rows.length;
+                var linha = tb.insertRow();
+
+                var cellTemporada = linha.insertCell();
+                var cellJogos = linha.insertCell();
+                var cellGols = linha.insertCell();
+                var cellAssistencias = linha.insertCell();
+                var cellPpj = linha.insertCell();
+                var cellGolsPenalti = linha.insertCell();
+                var cellTitulosColetivos = linha.insertCell();
+
+                cellTemporada.innerText = cr7[i].temporada;
+                cellJogos.innerText = cr7[i].jogos;
+                cellGols.innerText = cr7[i].gols;
+                cellAssistencias.innerText = cr7[i].assistencias;
+                cellPpj.innerText = cr7[i].ppj;
+                cellGolsPenalti.innerText = cr7[i].golsPenalti;
+                cellTitulosColetivos.innerText = cr7[i].titulosColetivos;
+}
+
+        }
+
+    }
+
+    function mudarJogador(num) {
+
+        if(num == 1) {
+            btn_messi.style.borderBottom =  "2px solid black"; 
+            infos_messi.style.display = "flex";
+            infos_cr7.style.display = "none";
+            btn_cr7.style.borderBottom = "none"
+            carregarEstatisticasTabela(num)
+        } else {
+            btn_messi.style.borderBottom =  "none"; 
+            infos_messi.style.display = "none";
+            infos_cr7.style.display = "flex";
+            btn_cr7.style.borderBottom = "2px solid black"
+            carregarEstatisticasTabela(num)
+        }
+
+    }
+
+    function underlineJog() {
+        btn_messi.style.borderBottom =  "2px solid black";
+    }
+
     // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
 
     let proximaAtualizacao;
@@ -499,7 +617,7 @@
 
         
 
-       
+        carregarEstatisticasTabela(1);
 
         // setTimeout(() => atualizarGrafico(idAquario, dados, myChart), 2000);
     }

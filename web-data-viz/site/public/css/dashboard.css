@@ -221,10 +221,110 @@ body {
     margin: 0;
 }
 
-.main-estatisticas {
-    overflow: hidden;
-    overflow-y: scroll;
-    
-    max-height: 500px;
+.main-nav {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 10%;
+    gap: 16px;
+}
 
+.main-nav button {
+    height: 32px;
+    padding: 0 10px;
+    background-color: transparent;
+    border: none;
+    cursor: pointer;
+}
+
+.main-infos {
+    width: 90%;
+    height: 20%;
+    margin: 0 5% 0 5%;
+    display: flex;
+}
+
+.main-infos img {
+    width: 70px;
+    max-height: 70px;
+    border-radius: 50%;
+    border: 2px solid black;
+    object-fit: cover;
+    object-position: top;
+}
+
+.img-nome {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    width: 30%;
+}
+
+.img-nome span {
+    display: flex;
+    justify-content: center;
+}
+
+.infos-jog {
+    width: 70%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    grid-template-areas: 
+        "idade altura"
+        "peBom numeroCamisa"
+        /* "sidebar header header header"
+        "sidebar main main main"; */
+
+}
+
+.idade {
+    grid-area: idade;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.altura {
+    grid-area: altura;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.peBom {
+    grid-area: peBom;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.numeroCamisa {
+    grid-area: numeroCamisa;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.tabela-estatistica {
+    width: 90%;
+    margin: 0 5% 0 5%;
+    height: 310px;
+    overflow-y: scroll;
+}
+
+table {
+    width: 100%;
+}
+
+table, th, td{
+    border: 1px solid #303030;
+    border-collapse: collapse;
 }
