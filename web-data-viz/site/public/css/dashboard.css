@@ -424,6 +424,9 @@ table, td{
 .main-atributos .main-carta .foto {
     width: 60%;
     margin: 20% 20% 0 20%;
+    background: url(../assets/imagens/messi-novo-carta.png);
+    background-size: cover;
+    background-position: center center;
     background-color: transparent;
     height: 100px;
     justify-content: left;
