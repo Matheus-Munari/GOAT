@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+
+<head>
+    <link rel="shortcut icon" href="../assets/icon/favicon2.ico" type="image/x-icon">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AquaTech | Dashboards</title>
+
+    <!-- <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/dashboards.css"> -->
+
+    <!-- Links da minha dashboard -->
+    <link rel="stylesheet" href="../css/minha-carreira.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
+      <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
+      <!-- <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" /> -->
+      <script src="https://kit.fontawesome.com/c213e24a43.js" crossorigin="anonymous"></script>
+      <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+      <!-- Fim dos links -->
+
+        <!-- Sweet Alert -->
+        <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css">
+
+    <!-- <link rel="preconnect" href="https://fonts.gstatic.com">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+        rel="stylesheet"> -->
+
+    <!-- scripts do Chart.js - 2022-1 -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!--FONT AWESOME-->
+    <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
+</head>
+
+<body onload="obterContagemPartidas(), mudarFoto(), underlineJog(), obterInfosUsuarios()">
+    <div class="gridContainer">
+
+        <!-- Header -->
+        <div class="header">
+            <div class="header-esquerda">
+                <span class="material-icons">search</span>
+            </div>
+            <div class="header-direira">
+                <span class="material-icons">notifications</span>
+                <span class="material-icons">email</span>
+            </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="sidebar">
+            <div class="sidebar-titulo" id="sidebar_titulo">
+                <!-- <img src="../assets/imagens/messi-art.png" class="img-icone">
+                <span id="b_usuario">NOME USUARIO</span> -->
+            </div>
+
+            <ul class="sidebar-list">
+                <li class="sidebar-list-item">
+                    <a href="./dashboard.html">
+                        <i class="fa-solid fa-chart-line"></i> Dashboard
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="./perfil.html">
+                        <i class="fa-solid fa-user"></i>Perfil
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="./minha-carreira.html">
+                        <i class="fa-solid fa-trophy"></i>Minha Carreira
+                    </a>
+                </li>
+                <li class="sidebar-list-item">
+                    <a href="../index.html">
+                        <span class="material-icons">logout</span> Sair
+                    </a>
+                </li>
+            </ul>
+        </div>
+
+        <!-- Main -->
+        <div class="main-container">
+            <div class="main-titulo">
+                <p class="font-weight-bold">MINHA CARREIRA</p>
+            </div>
+
+            <div class="main-cards">
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">PARTIDAS DISPUTADAS</p>
+                        <span class="material-symbols-outlined">
+                            analytics
+                        </span>
+                    </div>
+                    <div class="span-partidas">
+                        <span class="text-primary font-weight-bold" id="card_usuarios">500</span>
+                        <button onclick="adicionarPartidas()">
+                            <i class="fa-solid fa-plus fa-sm" style="color: #c0c0c0;" ></i>
+                        </button>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">GOLS</p>
+                        <i class="fa-solid fa-futbol fa-2xl"></i>
+                    </div>
+                    <span class="text-primary font-weight-bold" id="card_usuarios_messi">500</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">ASSISTENCIAS</p>
+                        <i class="fa-solid fa-handshake fa-2xl"></i>
+                    </div>
+                    <span class="text-primary font-weight-bold" id="card_usuarios_cr7">500</span>
+                </div>
+
+                <div class="card">
+                    <div class="card-inner">
+                        <p class="text-primary">Participação p/ jogo</p>
+                        <i class="fa-solid fa-percent fa-2xl"></i>
+                    </div>
+                    <span class="text-primary font-weight-bold" id="card_ppj" >500</span>
+                </div>
+
+            </div>
+            <div class="main-conteudo">
+                
+                <div class="main-grafico-canvas">
+                    <div class="main-grafico-header">
+                        <p>Gols/Ano de carreira</p>
+                        <select id="i_select_data" onchange="atualizarGrafico1()">
+                            <option value="1">Gols</option>
+                            <option value="2">Assistencias</option>
+                            <option value="3">Posição na bola de ouro</option>
+                        </select>
+                    </div>
+                    <canvas id="myChart"></canvas>
+                </div>
+                <div class="main-grafico">
+                    <div class="main-nav">
+                        <button id="btn_messi" onclick="mudarJogador(1)">Messi</button>
+                        <button id="btn_cr7" onclick="mudarJogador(2)">CR7</button>
+                    </div>
+                    <div class="main-infos" id="infos_messi">
+                        <div class="img-nome">
+                            <img src="../assets/imagens/imagem-messi-de-perfil.png">
+                            <span id="nome_user">Lionel Messi</span>
+                        </div>
+                        <div class="infos-jog">
+                            <div class="idade">
+                                <span>Idade</span>
+                                <span id="idade_user">36 anos</span>
+                            </div>
+                            <div class="altura">
+                                <span>Altura </span>
+                                <span id="altura_user">169cm</span>
+                            </div>
+                            <div class="peBom">
+                                <span>Pé preferido</span>
+                                <span>Esquerdo</span>
+                            </div>
+                            <div class="numeroCamisa">
+                                <span>Número da camisa</span>
+                                <span>10</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="tabela-estatistica">
+
+                        <h1>Melhores Partidas</h1>
+
+                           <table>
+                                <thead class="header-tabela">
+                                    
+                                        <th>Dia</th>
+                                        <th>Partidas</th>
+                                        <th>Gols</th>
+                                        <th>Assistencias</th>
+                                        <th>Participação direta em gols</th>
+                                    
+                                </thead>
+                                <tbody id="tabela_estatisticas">
+
+                                </tbody>
+                           </table> 
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>       
+        
+</body>
+
+</html>
+
+<script>
+
+    infosUsuario = [];
+
+    function obterInfosUsuarios() {
+
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        console.log(idUsuario);
+
+        fetch(`/usuarios/buscar/:${idUsuario}`, {
+        cache: 'no-store'
+        }).then(function(response) {
+
+            if(response.ok) {
+                response.json().then(function(resposta) {
+                    console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                    infosUsuario.push(resposta[0]);
+                    atualizarInfosPessoais();
+
+            });
+        }else {
+            console.error('Nenhum dado encontrado ou erro na API')
+        }
+        })
+        .catch(function (error) {
+            console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+        })
+        }
+
+
+    function carregarEstatisticasTabela() {
+
+        
+        var tb = document.getElementById("tabela_estatisticas");
+        tb.innerText = ``;
+
+        if(jog == 1) {
+            for(var i=0; i < messi.length;i++) {
+
+                // var qtdLinhas = tb.rows.length;
+                var linha = tb.insertRow();
+
+                var cellTemporada = linha.insertCell();
+                var cellJogos = linha.insertCell();
+                var cellGols = linha.insertCell();
+                var cellAssistencias = linha.insertCell();
+                var cellPpj = linha.insertCell();
+                var cellGolsPenalti = linha.insertCell();
+                var cellTitulosColetivos = linha.insertCell();
+
+                cellTemporada.innerText = messi[i].temporada;
+                cellJogos.innerText = messi[i].jogos;
+                cellGols.innerText = messi[i].gols;
+                cellAssistencias.innerText = messi[i].assistencias;
+                cellPpj.innerText = messi[i].ppj;
+                cellGolsPenalti.innerText = messi[i].golsPenalti;
+                cellTitulosColetivos.innerText = messi[i].titulosColetivos;
+            }
+        } else {
+
+            for(var i=0; i < cr7.length;i++) {
+
+                // var qtdLinhas = tb.rows.length;
+                var linha = tb.insertRow();
+
+                var cellTemporada = linha.insertCell();
+                var cellJogos = linha.insertCell();
+                var cellGols = linha.insertCell();
+                var cellAssistencias = linha.insertCell();
+                var cellPpj = linha.insertCell();
+                var cellGolsPenalti = linha.insertCell();
+                var cellTitulosColetivos = linha.insertCell();
+
+                cellTemporada.innerText = cr7[i].temporada;
+                cellJogos.innerText = cr7[i].jogos;
+                cellGols.innerText = cr7[i].gols;
+                cellAssistencias.innerText = cr7[i].assistencias;
+                cellPpj.innerText = cr7[i].ppj;
+                cellGolsPenalti.innerText = cr7[i].golsPenalti;
+                cellTitulosColetivos.innerText = cr7[i].titulosColetivos;
+}
+
+        }
+
+    }
+
+    function mudarJogador(num) {
+
+        if(num == 1) {
+            btn_messi.style.borderBottom =  "2px solid black"; 
+            infos_messi.style.display = "flex";
+            infos_cr7.style.display = "none";
+            btn_cr7.style.borderBottom = "none"
+            carregarEstatisticasTabela(num)
+        } else {
+            btn_messi.style.borderBottom =  "none"; 
+            infos_messi.style.display = "none";
+            infos_cr7.style.display = "flex";
+            btn_cr7.style.borderBottom = "2px solid black"
+            carregarEstatisticasTabela(num)
+        }
+
+    }
+
+    function underlineJog() {
+        btn_messi.style.borderBottom =  "2px solid black";
+    }
+
+    // b_usuario.innerHTML = sessionStorage.NOME_USUARIO;
+
+    var contPartidas = 0;
+    var contGols = 0;
+    var contAssistencias = 0;
+    var ppj = 0;
+
+    
+    function obterContagemPartidas() {
+        
+        var idUsuario = sessionStorage.ID_USUARIO;
+        fetch(`/jogadores/contarPartidas/:${idUsuario}`, {
+            cache: 'no-store'}).then(function(response) {
+                if(response.ok) {
+                    response.json().then(function(resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        contPartidas = Number(resposta[0].partidas);
+                        contGols = Number(resposta[0].gols);
+                        contAssistencias = Number(resposta[0].assistencias);
+                        atualizarCards();
+
+                    });
+                }else {
+                    console.error('Nenhum dado encontrado ou erro na API')
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+                })
+
+    }
+
+
+    function atualizarCards() {
+        var ppj = (contGols + contAssistencias) / contPartidas;
+
+        card_usuarios.innerText = contPartidas;
+        card_usuarios_messi.innerText = contGols;
+        card_usuarios_cr7.innerText = contAssistencias;
+        card_ppj.innerText = ppj;
+        
+    }
+
+
+    const data = new Date();
+    const dia = Number(data.getDate());
+    const mes = Number(data.getMonth()+1);
+    const ano = Number(data.getFullYear());
+
+    function atualizarInfosPessoais() {
+        var nascimento = infosUsuario[0].dtNasc.substr(0, 10);
+        var anoNasc = nascimento.substring(0, 4);
+        var mesNasc = nascimento.substring(5, 7);
+        var diaNasc = nascimento.substring(8, 10);
+        var idade = ano - anoNasc;
+        // console.log(anoNasc)
+        // console.log(ano)
+        // console.log(mesNasc)
+        // console.log(diaNasc)
+        // console.log(idade)
+
+        if(mes - mesNasc == 0) {
+            if(dia - diaNasc >= 0) {
+                idade--;
+            }
+        } else if(mes - mesNasc < 0) {
+            idade--
+        }
+
+        var nomeUser = infosUsuario[0].nome
+        var alturaUser = infosUsuario[0].altura
+
+        nome_user.innerText = nomeUser;
+        idade_user.innerText = `${idade} anos`
+        altura_user.innerText = alturaUser 
+
+    }
+
+    function adicionarPartidas() {
+        Swal.fire({
+            title: "<strong>Cadastrar novas partidas</strong>",
+            html: `
+            <div class="modal-cadastro">
+                <span>Partidas:</span> <input type="text" id="i_novas_partidas">
+                <span>Gols:</span> <input type="text" id="i_novos_gols">
+                <span>Assistencias</span> <input type="text" id="i_novas_assistencias">
+                <span>Data do jogo</span> <input type="date" id="i_data_jogo">
+            </div>
+            `,
+            showCloseButton: true,
+            showCancelButton: true,
+            focusConfirm: false,
+            confirmButtonText: `
+                <span onclick="cadastrarBanco()">Cadastrar</span> 
+            `,
+            confirmButtonAriaLabel: "Thumbs up, great!",
+            });
+    }
+
+    function cadastrarBanco() {
+        var novasPartidas = Number(i_novas_partidas.value);
+        var novosGols = Number(i_novos_gols.value);
+        var novasAssistencias = Number(i_novas_assistencias.value);
+        var dataJogo = i_data_jogo.value;
+        var fkUsuario = Number(sessionStorage.ID_USUARIO);
+
+        console.log(novasPartidas)
+        console.log(novosGols)
+        console.log(novasAssistencias)
+        console.log(dataJogo)
+
+        fetch("/jogadores/inserirNovosDados", {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+                novasPartidasServer: novasPartidas,
+                novosGolsServer: novosGols,
+                novasAssistenciasServer: novasAssistencias,
+                dataJogoServer: dataJogo,
+                fkUsuarioServer: fkUsuario
+      }),
+        }) .then(function (resposta) {
+            console.log("resposta: ", resposta);
+
+            if (resposta.ok) {
+                console.log("Perfil atualizado com sucesso")
+
+
+            } else {
+            throw "Houve um erro ao tentar realizar o cadastro!";
+            }
+        })
+        .catch(function (resposta) {
+            console.log(`#ERRO: ${resposta}`);
+            // finalizarAguardar();
+        });
+    }
+
+    function obterDadosJogadores() {
+
+        fetch(`/jogadores/listar`, {
+            cache: 'no-store'}).then(function(response) {
+                if(response.ok) {
+                    response.json().then(function(resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        plotarGrafico(resposta)
+                    });
+                }else {
+                    console.error('Nenhum dado encontrado ou erro na API')
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+                })
+    }
+
+
+    // Esta função *plotarGrafico* usa os dados capturados na função anterior para criar o gráfico
+    // Configura o gráfico (cores, tipo, etc), materializa-o na página e, 
+    // A função *plotarGrafico* também invoca a função *atualizarGrafico*
+
+    function mudarFoto() {
+        var jogadorFavorito = sessionStorage.FK_USUARIO;
+
+        if(jogadorFavorito == 1) {
+            sidebar_titulo.innerHTML +=
+            `<img src="../assets/imagens/messi-art.png" class="img-icone"> 
+            <span>${sessionStorage.NOME_USUARIO}</span>`
+        } else {
+            sidebar_titulo.innerHTML +=
+            `<img src="../assets/imagens/ronaldo-art.png" class="img-icone"> 
+            <span>${sessionStorage.NOME_USUARIO}</span>`
+        }
+
+
+    }
+
+</script>

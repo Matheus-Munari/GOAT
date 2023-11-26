@@ -27,8 +27,33 @@ function contarMessi() {
     return database.executar(instrucao);
 }
 
+function contarPartidas(fkUsuario) {
+    var instrucao =
+    `
+    select fkUsuario, sum(jogos) as partidas, sum(gols) as gols, sum(assistencias) as assistencias from partida Where fkUsuario = ${fkUsuario}
+	GROUP BY fkUsuario;
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function inserirNovosDados(novosJogos, novosGols, novasAssistencias, dataJogo, fkUsuario) {
+    console.log('Estou no models')
+    var instrucao =
+    `
+        INSERT INTO partida VALUES (null, ${novosJogos}, ${novosGols}, ${novasAssistencias}, ${fkUsuario}, '${dataJogo}');
+    `
+
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     contarUsuario,
-    contarMessi
+    contarMessi,
+    contarUsuario,
+    contarPartidas,
+    inserirNovosDados
 }

@@ -26,8 +26,45 @@ function contarMessi(req, res) {
     })
 }
 
+function contarPartidas(req, res) {
+    var parametro = req.params.idUsuario;
+
+    var parametroString = `${parametro}`
+
+    var fkUsuario = parametroString.replace(':', '');
+
+    jogadorModel.contarPartidas(fkUsuario).then(function(resultado) {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
+function inserirNovosDados(req, res) {
+    var novosJogos = req.body.novasPartidasServer;
+    var novosGols = req.body.novosGolsServer;
+    var novasAssistencias = req.body.novasAssistenciasServer;
+    var dataJogo = req.body.dataJogoServer;
+    var fkUsuario = req.body.fkUsuarioServer;
+
+    console.log('Estou no controller')
+
+    jogadorModel.inserirNovosDados(novosJogos, novosGols, novasAssistencias, dataJogo, fkUsuario).then(function(resultado) {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        console.log(
+        "\nHouve um erro ao realizar o cadastro! Erro: ",
+        erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     contarUsuario,
-    contarMessi
+    contarMessi,
+    contarPartidas,
+    inserirNovosDados
 }

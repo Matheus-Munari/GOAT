@@ -15,4 +15,12 @@ router.get("/contarMessi", function (req, res) {
     jogadorController.contarMessi(req, res);
 });
 
+router.get("/contarPartidas/:idUsuario", function (req, res) {
+    jogadorController.contarPartidas(req, res);
+});
+
+router.post("/inserirNovosDados", function (req, res) {
+    jogadorController.inserirNovosDados(req, res);
+});
+
 module.exports = router;
