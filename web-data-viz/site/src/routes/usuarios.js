@@ -16,4 +16,16 @@ router.get("/buscar/:idUsuario", function (req, res) {
     usuarioController.buscar(req, res);
 });
 
+router.put("/atualizar", function (req, res) {
+    usuarioController.atualizar(req, res);
+})
+
+router.post("/inserirAtributos", function (req, res) {
+    usuarioController.inserirAtributos(req, res);
+})
+
+router.put("/atualizarAtributos", function (req, res) {
+    usuarioController.atualizarAtributos(req, res);
+})
+
 module.exports = router;

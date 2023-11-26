@@ -122,9 +122,10 @@ function buscar(req, res) {
     var usuario = req.params.idUsuario;
 
     var sUsuario = `${usuario}`;
-    var idUsuario = Number(sUsuario[1]);
+    var idUsuario = sUsuario.replace(':', '');
     console.log(idUsuario);
     console.log(req.params.idUsuario);
+    // var idUsuario = req.params.idUsuario;
 
     console.log(`Recuperando as os dados do usuário de id ${idUsuario}`);
 
@@ -141,9 +142,104 @@ function buscar(req, res) {
     })
 }
 
+function atualizar(req, res) {
+    var altura = req.body.alturaServer;
+    var peso = req.body.pesoServer;
+    var posicao = req.body.posicaoServer;
+    var idUsuario = req.body.idUsuarioServer;
+
+    if (altura == undefined) {
+        res.status(400).send("Sua altura está undefined!");
+    } else if (peso == undefined) {
+        res.status(400).send("Seu peso está undefined!");
+    } else if (posicao == undefined) {
+        res.status(400).send("Sua posicao está undefined!");
+    }
+
+    usuarioModel.atualizar(altura, peso, posicao, idUsuario)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao atualizar o perfil! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+
+}
+
+function atualizarAtributos(req, res) {
+    var ritmo = req.body.ritmoServer;
+    var finalizacao = req.body.finalizacaoServer;
+    var passe = req.body.passeServer;
+    var drible = req.body.dribleServer;
+    var defesa = req.body.defesaServer;
+    var fisico = req.body.fisicoServer;
+    var idAtributos = req.body.idAtributos;
+    var overall = req.body.overServer;
+
+
+    if (ritmo == undefined) {
+        res.status(400).send("Sua ritmo está undefined!");
+    } else if (finalizacao == undefined) {
+        res.status(400).send("Seu finalização está undefined!");
+    } else if (passe == undefined) {
+        res.status(400).send("Sua passe está undefined!");
+    }
+
+    usuarioModel.atualizarAtributos(ritmo, finalizacao, passe, drible, defesa, fisico, idAtributos, overall)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao atualizar o perfil! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+
+}
+
+function inserirAtributos(req, res) {
+    var idAtributo = req.body.idAtributoServer;
+
+    usuarioModel.inserirAtributos(idAtributo)
+            .then(
+                function (resultado) {
+                    res.json(resultado);
+
+                }
+            ).catch(
+                function (erro) {
+                    console.log(erro);
+                    console.log(
+                        "\nHouve um erro ao atualizar o perfil! Erro: ",
+                        erro.sqlMessage
+                    );
+                    res.status(500).json(erro.sqlMessage);
+                }
+            );
+}
+
 
 module.exports = {
     autenticar,
     cadastrar,
-    buscar
+    buscar,
+    atualizar,
+    inserirAtributos,
+    atualizarAtributos
 }

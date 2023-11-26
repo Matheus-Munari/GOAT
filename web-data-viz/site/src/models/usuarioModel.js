@@ -24,15 +24,45 @@ function cadastrar(nome, email, senha, dtNasc, rua, cep, bairro, numero, jogador
 
 function buscar(idUsuario) {
     var instrucao = `
-        SELECT * FROM usuario where idUsuario = ${idUsuario};
+    SELECT * FROM usuario as u LEFT JOIN atributos as a
+	on idAtributos = fkAtributos WHERE idUsuario = ${idUsuario};
     `;
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);
 
 }
 
+function atualizar(altura, peso, posicao, idUsuario) {
+    var instrucao = `
+    UPDATE usuario SET altura = ${altura}, peso = ${peso}, posicao = '${posicao}', fkAtributos = ${idUsuario} 
+	WHERE idUsuario = ${idUsuario};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function inserirAtributos(idAtributo) {
+    var instrucao = `
+    insert into atributos values
+	(${idAtributo}, 50, 50, 50, 50, 50, 50, 300, 50);
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
+function atualizarAtributos(ritmo, finalizacao, passe, drible, defesa, fisico, idAtributos, overall) {
+    var instrucao = `
+    update atributos set ritmo = ${ritmo}, finalizacao = ${finalizacao}, passe = ${passe}, drible = ${drible}, defesa = ${defesa}, fisico = ${fisico}, overall = ${overall} where idAtributos = ${idAtributos};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     autenticar,
     cadastrar,
-    buscar
+    buscar,
+    atualizar,
+    inserirAtributos,
+    atualizarAtributos
 };
