@@ -57,6 +57,15 @@ function atualizarNivel(novoNivel, novosPontos, idAtributos) {
     return database.executar(instrucao);
 }
 
+function obterDadosPartidas(fkUsuario) {
+    var instrucao =
+    `
+    select * from partida Where fkUsuario = ${fkUsuario};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     contarUsuario,
@@ -64,5 +73,6 @@ module.exports = {
     contarUsuario,
     contarPartidas,
     inserirNovosDados,
-    atualizarNivel
+    atualizarNivel,
+    obterDadosPartidas
 }

@@ -27,4 +27,8 @@ router.put("/atualizarNivel", function (req, res) {
     jogadorController.atualizarNivel(req, res);
 });
 
+router.get("/obterDadosPartidas/:fkUsuario", function (req, res) {
+    jogadorController.obterDadosPartidas(req, res);
+});
+
 module.exports = router;

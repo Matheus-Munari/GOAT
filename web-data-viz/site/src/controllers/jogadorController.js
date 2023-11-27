@@ -80,11 +80,26 @@ function atualizarNivel(req, res) {
     })
 }
 
+function obterDadosPartidas(req, res) {
+    var parametro = req.params.fkUsuario;
+
+    var parametroString = `${parametro}`
+
+    var idUsuario = parametroString.replace(':', '');
+
+    jogadorModel.obterDadosPartidas(idUsuario).then(function(resultado) {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     contarUsuario,
     contarMessi,
     contarPartidas,
     inserirNovosDados,
-    atualizarNivel
+    atualizarNivel,
+    obterDadosPartidas
 }

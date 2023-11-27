@@ -134,14 +134,11 @@
                 
                 <div class="main-grafico-canvas">
                     <div class="main-grafico-header">
-                        <p>Gols/Ano de carreira</p>
-                        <select id="i_select_data" onchange="atualizarGrafico1()">
-                            <option value="1">Gols</option>
-                            <option value="2">Assistencias</option>
-                            <option value="3">Posição na bola de ouro</option>
-                        </select>
+                        <h1>Participações diretas em gols</h1>
                     </div>
-                    <canvas id="myChart"></canvas>
+                    <canvas id="myChart">
+                        
+                    </canvas>
                 </div>
                 <div class="main-grafico">
                     <div class="main-nav">
@@ -240,58 +237,29 @@
 
 
     function carregarEstatisticasTabela() {
-
         
         var tb = document.getElementById("tabela_estatisticas");
         tb.innerText = ``;
 
-        if(jog == 1) {
-            for(var i=0; i < messi.length;i++) {
+            for(var i=0; i < 3;i++) {
 
                 // var qtdLinhas = tb.rows.length;
                 var linha = tb.insertRow();
 
-                var cellTemporada = linha.insertCell();
-                var cellJogos = linha.insertCell();
-                var cellGols = linha.insertCell();
-                var cellAssistencias = linha.insertCell();
+                var cellDiaPartida = linha.insertCell();
+                var cellQtdPartidas = linha.insertCell();
+                var cellQtdGols = linha.insertCell();
+                var cellQtdAssistencias = linha.insertCell();
                 var cellPpj = linha.insertCell();
-                var cellGolsPenalti = linha.insertCell();
-                var cellTitulosColetivos = linha.insertCell();
 
-                cellTemporada.innerText = messi[i].temporada;
-                cellJogos.innerText = messi[i].jogos;
-                cellGols.innerText = messi[i].gols;
-                cellAssistencias.innerText = messi[i].assistencias;
-                cellPpj.innerText = messi[i].ppj;
-                cellGolsPenalti.innerText = messi[i].golsPenalti;
-                cellTitulosColetivos.innerText = messi[i].titulosColetivos;
+
+                cellDiaPartida.innerText = historicoPartidas[i].dia.substring(0, 10);
+                cellQtdPartidas.innerText = historicoPartidas[i].jogos;
+                cellQtdGols.innerText = historicoPartidas[i].gols;
+                cellQtdAssistencias.innerText = historicoPartidas[i].assistencias;
+                cellPpj.innerText = historicoPartidas[i].ppj.toFixed(2)
             }
-        } else {
 
-            for(var i=0; i < cr7.length;i++) {
-
-                // var qtdLinhas = tb.rows.length;
-                var linha = tb.insertRow();
-
-                var cellTemporada = linha.insertCell();
-                var cellJogos = linha.insertCell();
-                var cellGols = linha.insertCell();
-                var cellAssistencias = linha.insertCell();
-                var cellPpj = linha.insertCell();
-                var cellGolsPenalti = linha.insertCell();
-                var cellTitulosColetivos = linha.insertCell();
-
-                cellTemporada.innerText = cr7[i].temporada;
-                cellJogos.innerText = cr7[i].jogos;
-                cellGols.innerText = cr7[i].gols;
-                cellAssistencias.innerText = cr7[i].assistencias;
-                cellPpj.innerText = cr7[i].ppj;
-                cellGolsPenalti.innerText = cr7[i].golsPenalti;
-                cellTitulosColetivos.innerText = cr7[i].titulosColetivos;
-}
-
-        }
 
     }
 
@@ -368,7 +336,9 @@
         card_usuarios.innerText = contPartidas;
         card_usuarios_messi.innerText = contGols;
         card_usuarios_cr7.innerText = contAssistencias;
-        card_ppj.innerText = ppj;
+        card_ppj.innerText = ppj.toFixed(2);
+
+        obterDadosPartidas();
         
     }
 
@@ -391,7 +361,7 @@
         // console.log(idade)
 
         if(mes - mesNasc == 0) {
-            if(dia - diaNasc >= 0) {
+            if(dia - diaNasc < 0) {
                 idade--;
             }
         } else if(mes - mesNasc < 0) {
@@ -534,6 +504,55 @@
         }
         }, 300)
         
+    }
+
+    var historicoPartidas = [];
+
+    function obterDadosPartidas() {
+        var fkUsuario = sessionStorage.ID_USUARIO;
+
+
+        fetch(`/jogadores/obterDadosPartidas/:${fkUsuario}`, {
+            cache: 'no-store'}).then(function(response) {
+                if(response.ok) {
+                    response.json().then(function(resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        for(var i=0; i < resposta.length; i++) {
+
+                            historicoPartidas.push(resposta[i]);
+
+                        }
+                        
+                        ranquearPartidas()
+                    });
+                }else {
+                    console.error('Nenhum dado encontrado ou erro na API')
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+                })
+
+    }
+
+    function ranquearPartidas() {
+
+        for(var i=0; i<historicoPartidas.length;i++) {
+            var ppj = (historicoPartidas[i].gols + historicoPartidas[i].assistencias) / historicoPartidas[i].jogos;
+            historicoPartidas[i].ppj = ppj;
+
+        }
+
+        historicoPartidas.sort(function(a, b) {
+            if(a.ppj > b.ppj){
+                return -1
+            } else {
+                return true;
+            }
+        });
+
+        carregarEstatisticasTabela()
     }
 
     function atualizarNivel(pontos, nivel) {
