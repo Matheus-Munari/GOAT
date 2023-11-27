@@ -31,4 +31,8 @@ router.get("/obterDadosPartidas/:fkUsuario", function (req, res) {
     jogadorController.obterDadosPartidas(req, res);
 });
 
+router.get("/contarStats", function (req, res) {
+    jogadorController.contarStats(req, res);
+});
+
 module.exports = router;

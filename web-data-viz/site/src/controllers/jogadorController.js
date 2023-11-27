@@ -94,6 +94,14 @@ function obterDadosPartidas(req, res) {
     })
 }
 
+function contarStats(req, res) {
+    jogadorModel.contarStats().then(function(resultado) {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     contarUsuario,
@@ -101,5 +109,6 @@ module.exports = {
     contarPartidas,
     inserirNovosDados,
     atualizarNivel,
-    obterDadosPartidas
+    obterDadosPartidas,
+    contarStats
 }

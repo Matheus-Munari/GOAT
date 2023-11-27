@@ -134,16 +134,17 @@
                 
                 <div class="main-grafico-canvas">
                     <div class="main-grafico-header">
-                        <h1>Participações diretas em gols</h1>
+                        <h1>Participações diretas em gols/partida</h1>
                     </div>
                     <canvas id="myChart">
-                        
+
                     </canvas>
                 </div>
                 <div class="main-grafico">
                     <div class="main-nav">
-                        <button id="btn_messi" onclick="mudarJogador(1)">Messi</button>
-                        <button id="btn_cr7" onclick="mudarJogador(2)">CR7</button>
+                        
+                        <!-- <button id="btn_messi" onclick="mudarJogador(1)">Messi</button>
+                        <button id="btn_cr7" onclick="mudarJogador(2)">CR7</button> -->
                     </div>
                     <div class="main-infos" id="infos_messi">
                         <div class="img-nome">
@@ -260,7 +261,7 @@
                 cellPpj.innerText = historicoPartidas[i].ppj.toFixed(2)
             }
 
-
+            buscarPpjGoats()
     }
 
     function mudarJogador(num) {
@@ -329,9 +330,10 @@
 
     }
 
+    var ppj = 0;
 
     function atualizarCards() {
-        var ppj = (contGols + contAssistencias) / contPartidas;
+        ppj = (contGols + contAssistencias) / contPartidas;
 
         card_usuarios.innerText = contPartidas;
         card_usuarios_messi.innerText = contGols;
@@ -625,6 +627,100 @@
         }
 
 
+    }
+
+    let dados = {
+            labels: ['Participações por jogo'],
+            datasets: [{
+                label: 'Messi',
+                data: [],
+                fill: false,
+                borderColor: 'rgb(75, 192, 192)',
+                backgroundColor: 'rgb(75, 192, 192)',
+                tension: 0.9
+            },
+            {
+                label: 'CR7',
+                data: [],
+                fill: false,
+                borderColor: 'green',
+                backgroundColor: 'green',
+                tension: 0.9
+            },
+            {
+                label: 'Você',
+                data: [],
+                fill: false,
+                borderColor: 'red',
+                backgroundColor: 'red',
+                tension: 0.9
+            }]
+        };
+
+        // Criando estrutura para plotar gráfico - config
+        const config = {
+            type: 'bar',
+            data: dados,
+            options: {
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        min: 0,
+                        max: 1.4
+                    }
+                }
+            }
+        };
+
+         // Adicionando gráfico criado em div na tela
+         const myChart = new Chart(
+            document.getElementById(`myChart`),
+            config
+        );
+
+    var estatisticasGoats = [];
+
+    var messiPpj = 0;
+    var cr7Ppj = 0;
+
+    function buscarPpjGoats() {
+
+        fetch(`/jogadores/contarStats`, {
+            cache: 'no-store'}).then(function(response) {
+                if(response.ok) {
+                    response.json().then(function(resposta) {
+                        console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
+
+                        calcularPpj(resposta[0].fkJogador, resposta[0].partidas, resposta[0].gols, resposta[0].assistencias);
+                        calcularPpj(resposta[1].fkJogador, resposta[1].partidas, resposta[1].gols, resposta[1].assistencias);
+                    });
+                }else {
+                    console.error('Nenhum dado encontrado ou erro na API')
+                }
+            })
+                .catch(function (error) {
+                    console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
+                })
+
+    }
+
+    function calcularPpj(fkJogador, partidas, gols, assistencias) {
+        if(fkJogador == 1) {
+            messiPpj = ((Number(gols) + Number(assistencias))/Number(partidas)).toFixed(2)
+        }else {
+            cr7Ppj = ((Number(gols) + Number(assistencias))/Number(partidas)).toFixed(2)
+        }
+
+        plotarGrafico();
+    }
+
+    function plotarGrafico() {
+
+        myChart.data.datasets[0].data = [messiPpj];
+        myChart.data.datasets[1].data = [cr7Ppj];
+        myChart.data.datasets[2].data = [ppj];
+
+        myChart.update();
     }
 
 </script>

@@ -66,6 +66,16 @@ function obterDadosPartidas(fkUsuario) {
     return database.executar(instrucao);
 }
 
+function contarStats() {
+    var instrucao = `
+    select fkJogador, sum(jogos) as partidas, sum(gols) gols, sum(assistencias) as assistencias from estatisticasTemporada group by fkJogador;
+    `;
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+
+}
+
+
 module.exports = {
     listar,
     contarUsuario,
@@ -74,5 +84,6 @@ module.exports = {
     contarPartidas,
     inserirNovosDados,
     atualizarNivel,
-    obterDadosPartidas
+    obterDadosPartidas,
+    contarStats
 }
