@@ -44,7 +44,7 @@ function atualizar(altura, peso, posicao, idUsuario) {
 function inserirAtributos(idAtributo) {
     var instrucao = `
     insert into atributos values
-	(${idAtributo}, 50, 50, 50, 50, 50, 50, 300, 50);
+	(${idAtributo}, 50, 50, 50, 50, 50, 50, 300, 50, 0);
     `
     console.log("Executando a instrução SQL: \n" + instrucao);
     return database.executar(instrucao);

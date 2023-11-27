@@ -23,4 +23,8 @@ router.post("/inserirNovosDados", function (req, res) {
     jogadorController.inserirNovosDados(req, res);
 });
 
+router.put("/atualizarNivel", function (req, res) {
+    jogadorController.atualizarNivel(req, res);
+});
+
 module.exports = router;

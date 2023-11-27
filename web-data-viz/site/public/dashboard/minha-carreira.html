@@ -98,7 +98,7 @@
                         </span>
                     </div>
                     <div class="span-partidas">
-                        <span class="text-primary font-weight-bold" id="card_usuarios">500</span>
+                        <span class="text-primary font-weight-bold" id="card_usuarios">0</span>
                         <button onclick="adicionarPartidas()">
                             <i class="fa-solid fa-plus fa-sm" style="color: #c0c0c0;" ></i>
                         </button>
@@ -110,7 +110,7 @@
                         <p class="text-primary">GOLS</p>
                         <i class="fa-solid fa-futbol fa-2xl"></i>
                     </div>
-                    <span class="text-primary font-weight-bold" id="card_usuarios_messi">500</span>
+                    <span class="text-primary font-weight-bold" id="card_usuarios_messi">0</span>
                 </div>
 
                 <div class="card">
@@ -118,7 +118,7 @@
                         <p class="text-primary">ASSISTENCIAS</p>
                         <i class="fa-solid fa-handshake fa-2xl"></i>
                     </div>
-                    <span class="text-primary font-weight-bold" id="card_usuarios_cr7">500</span>
+                    <span class="text-primary font-weight-bold" id="card_usuarios_cr7">0</span>
                 </div>
 
                 <div class="card">
@@ -126,7 +126,7 @@
                         <p class="text-primary">Participação p/ jogo</p>
                         <i class="fa-solid fa-percent fa-2xl"></i>
                     </div>
-                    <span class="text-primary font-weight-bold" id="card_ppj" >500</span>
+                    <span class="text-primary font-weight-bold" id="card_ppj" >0</span>
                 </div>
 
             </div>
@@ -219,6 +219,13 @@
                     console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
                     infosUsuario.push(resposta[0]);
+                    if(resposta[0].fkAtributos == null) {
+                        Swal.fire({
+                            title: "Calma lá",
+                            text: "Você ainda não cadastrou uma carta de atributos, vá até a aba de perfil e cadastre-se para acompanhar suas estatísticas",
+                            icon: "question"
+                            });
+                    }
                     atualizarInfosPessoais();
 
             });
@@ -327,10 +334,20 @@
                     response.json().then(function(resposta) {
                         console.log(`Dados recebidos: ${JSON.stringify(resposta)}`);
 
-                        contPartidas = Number(resposta[0].partidas);
-                        contGols = Number(resposta[0].gols);
-                        contAssistencias = Number(resposta[0].assistencias);
-                        atualizarCards();
+                        if(resposta.length > 0) {
+                            contPartidas = Number(resposta[0].partidas);
+                            contGols = Number(resposta[0].gols);
+                            contAssistencias = Number(resposta[0].assistencias);
+                            atualizarCards();
+                        } else {
+                            Swal.fire({
+                                position: "top-end",
+                                icon: "warning",
+                                title: "Você ainda não cadastrou nenhuma partida",
+                                showConfirmButton: false,
+                                timer: 1500
+                                });
+                        }
 
                     });
                 }else {
@@ -340,6 +357,7 @@
                 .catch(function (error) {
                     console.error(`Erro na obtenção dos dados p/ gráfico: ${error.message}`)
                 })
+                return [contPartidas, contGols, contAssistencias]
 
     }
 
@@ -421,6 +439,7 @@
         console.log(novosGols)
         console.log(novasAssistencias)
         console.log(dataJogo)
+        console.log(fkUsuario)
 
         fetch("/jogadores/inserirNovosDados", {
             method: "POST",
@@ -440,6 +459,7 @@
             if (resposta.ok) {
                 console.log("Perfil atualizado com sucesso")
 
+                aumentarXp();
 
             } else {
             throw "Houve um erro ao tentar realizar o cadastro!";
@@ -449,6 +469,103 @@
             console.log(`#ERRO: ${resposta}`);
             // finalizarAguardar();
         });
+    }
+
+    function aumentarXp() {
+        var numeros = obterContagemPartidas();
+        obterInfosUsuarios();
+        setTimeout(function (){
+        console.log(`contPartidas: ${numeros[0]}`)
+        console.log(`contGols: ${numeros[1]}`)
+        console.log(`contAssistencias: ${numeros[2]}`)
+
+
+        var novosPontos = infosUsuario[infosUsuario.length-1].pontos
+        var novoNivel = infosUsuario[infosUsuario.length-1].nivel 
+
+        if(contPartidas >= 10 && contGols >= 5 && contAssistencias >= 4 && infosUsuario[infosUsuario.length - 1].nivel == 0) {
+            novosPontos+=10
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=20 && contGols >= 10 && contAssistencias >= 6 && infosUsuario[infosUsuario.length - 1].nivel == 1) {
+            //Adciona +1 de  nivel e +10 de pontos
+            novosPontos+=10
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=35 && contGols >= 25 && contAssistencias >= 10 && infosUsuario[infosUsuario.length - 1].nivel == 2) {
+            //Adiciona +1 nivel e +15 pontos
+            novosPontos+=15
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=60 && contGols >= 45 && contAssistencias >= 20 && infosUsuario[infosUsuario.length - 1].nivel == 3) {
+            //Adiciona +1 nivel e +20 pontos
+            novosPontos+=20
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=80 && contGols >= 55 && contAssistencias >= 30 && infosUsuario[infosUsuario.length - 1].nivel == 4) {
+            //Adiciona +1 nivel e +20 pontos
+            novosPontos+=30
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=110 && contGols >= 75 && contAssistencias >= 40 && infosUsuario[infosUsuario.length - 1].nivel == 5) {
+            //Adiciona +1 nivel e +20 pontos
+            novosPontos+=35
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }else if(contPartidas>=150 && contGols >= 100 && contAssistencias >= 60 && infosUsuario[infosUsuario.length - 1].nivel == 6) {
+            //Adiciona +1 nivel e +20 pontos
+            novosPontos+=50
+            novoNivel++
+            console.log(`Novos pontos:  ${novosPontos}`)
+            console.log(`Novo nível: ${novoNivel}`)
+            atualizarNivel(novosPontos, novoNivel)
+        }
+        }, 300)
+        
+    }
+
+    function atualizarNivel(pontos, nivel) {
+        var nivelAdd = nivel;
+        var pontosAdd = pontos;
+        var idUsuario = sessionStorage.ID_USUARIO;
+
+        fetch("/jogadores/atualizarNivel", {
+            method: "PUT",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ 
+                nivelAddServer: nivelAdd,
+                pontosAddServer:  pontosAdd,
+                idAtributos: idUsuario
+            }),
+            }) .then(function (resposta) {
+                console.log("resposta: ", resposta);
+
+                if (resposta.ok) {
+                    console.log("Nível atualizado com sucesso")
+
+
+                } else {
+                throw "Houve um erro ao tentar realizar o cadastro!";
+                }
+            })
+            .catch(function (resposta) {
+                console.log(`#ERRO: ${resposta}`);
+                // finalizarAguardar();
+            });
     }
 
     function obterDadosJogadores() {

@@ -49,11 +49,20 @@ function inserirNovosDados(novosJogos, novosGols, novasAssistencias, dataJogo, f
     return database.executar(instrucao);
 }
 
+function atualizarNivel(novoNivel, novosPontos, idAtributos) {
+    var instrucao = `
+        UPDATE atributos SET pontos = ${novosPontos}, nivel = ${novoNivel} WHERE idAtributos = ${idAtributos};
+    `
+    console.log("Executando a instrução SQL: \n" + instrucao);
+    return database.executar(instrucao);
+}
+
 module.exports = {
     listar,
     contarUsuario,
     contarMessi,
     contarUsuario,
     contarPartidas,
-    inserirNovosDados
+    inserirNovosDados,
+    atualizarNivel
 }

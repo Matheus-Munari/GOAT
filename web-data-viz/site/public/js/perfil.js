@@ -48,6 +48,7 @@ var infosUsuario = [];
         if (resposta.ok) {
             console.log("Perfil atualizado com sucesso")
 
+            inserirEstatisticas();
 
         } else {
           throw "Houve um erro ao tentar realizar o cadastro!";

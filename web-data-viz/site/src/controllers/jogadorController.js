@@ -61,10 +61,30 @@ function inserirNovosDados(req, res) {
     })
 }
 
+function atualizarNivel(req, res) {
+    var novoNivel = req.body.nivelAddServer;
+    var novosPontos = req.body.pontosAddServer;
+    var idAtributos = req.body.idAtributos;
+
+    console.log('Estou no controller')
+
+    jogadorModel.atualizarNivel(novoNivel, novosPontos, idAtributos).then(function(resultado) {
+        res.status(200).json(resultado);
+    }).catch(function(erro){
+        console.log(erro);
+        console.log(
+        "\nHouve um erro ao realizar o cadastro! Erro: ",
+        erro.sqlMessage
+        );
+        res.status(500).json(erro.sqlMessage);
+    })
+}
+
 module.exports = {
     listar,
     contarUsuario,
     contarMessi,
     contarPartidas,
-    inserirNovosDados
+    inserirNovosDados,
+    atualizarNivel
 }
