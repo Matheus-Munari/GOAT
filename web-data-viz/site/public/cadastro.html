@@ -6,103 +6,26 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-  <title>AquaTech | Cadastro</title>
+  <title>GOAT | Cadastro</title>
 
   
   <script src="./js/sessao.js"></script>
   <script src="./js/cadastro.js"></script>
 
-  <link rel="icon" href="./assets/icon/favicon2.ico" />
+  <link rel="icon" href="./assets/imagens/image 1.png" />
   <link rel="stylesheet" href="./css/login_cadastro.css" />
   <link rel="preconnect" href="https://fonts.gstatic.com" />
   <link
     href="https://fonts.googleapis.com/css2?family=Exo+2:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
     rel="stylesheet" />
+
+    <!-- sweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+
 </head>
 
 <body onload="underline()">
-  <!-- header inicio -->
-  <!-- <div class="header">
-    <div class="container">
-      <h1 class="titulo">AquaTech</h1>
-      <ul class="navbar">
-        <li>
-          <a href="index.html">Inicial</a>
-        </li>
-        <li>
-          <a href="simulador.html">Simulador</a>
-        </li>
-        <li>|</li>
-        <li>
-          <a href="login.html">Login</a>
-        </li>
-        <li class="agora">
-          <a href="#">Cadastro</a>
-        </li>
-      </ul>
-    </div>
-  </div> -->
-   <!-- header fim -->
-
-  <!-- <div class="login">
-    <div class="alerta_erro">
-      <div class="card_erro" id="cardErro">
-        <span id="mensagem_erro"></span>
-      </div>
-    </div>
-    <div class="container">
-      <div class="card card-cadastro">
-        <h2>Bem-vindo!</h2>
-        <div class="formulario"> -->
-          <!--
-                         Para inserir mais um campo, copie uma das inputs abaixo.
-                         Assim que inserir vá para o script abaixo.
-                     -->
-          <!-- <div class="campo">
-            <span>Empresa:</span>
-            <select name="empresas" id="listaEmpresas">
-              <option selected>Selecione uma empresa</option>
-            </select>
-          </div>
-          <div class="campo">
-            <span>Nome:</span>
-            <input id="nome_input" type="text" placeholder="Seu nome" />
-          </div>
-          <div class="campo">
-            <span>E-mail:</span>
-            <input id="email_input" type="text" placeholder="meuemail@provedor.com" />
-          </div>
-          <div class="campo">
-            <span>Senha:</span>
-            <input id="senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>Confirmação da Senha:</span>
-            <input id="confirmacao_senha_input" type="password" placeholder="******" />
-          </div>
-          <div class="campo">
-            <span>CPF:</span>
-            <input id="cpf_input" type="text" placeholder="Seu CPF" />
-          </div>
-          <button class="botao" onclick="cadastrar()">Cadastrar</button>
-        </div>
-        <div id="div_aguardar" class="loading-div">
-          <img src="./assets/circle-loading.gif" id="loading-gif" />
-        </div>
-
-        <div id="div_erros_login"></div>
-      </div>
-    </div>
-  </div> -->
-
-  <!--footer inicio-->
-  <!-- <div class="footer">
-    <div class="container">
-      <h4>Feito com amor por aluno &hearts; SPTech &copy; 2023</h4>
-      <span class="version">v1.0.0</span>
-    </div>
-  </div> -->
-  <!-- footer fim -->
 
   <!-- Minha tela de cadastro INICIO -->
   <div class="page">
@@ -178,49 +101,21 @@
                         <i class="fa-solid fa-circle-check"></i>
                         <small>Mensagem de erro</small>
                     </div>
-                    <button onclick="validarInformacoesUsuario()">Cadastro 1/2</button>
+                    <button onclick="validarInformacoesUsuario()">Finalizar cadastro</button>
                 </div>
-                <div class="formCadastroEndereco" id="form_cadastroEndereco">
-                    <div class="controleFormulario">
-                        <label for="cep">CEP</label>
-                        <input type="text" placeholder="Digite seu CEP" id="i_cadastro_cep">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
-                        <small>Mensagem de erro</small>
-                    </div>
-                    <div class="controleFormulario">
-                        <label for="Rua">Rua</label>
-                        <input type="text" placeholder="Digite o nome da rua onde mora" id="i_cadastro_rua">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
-                        <small>Mensagem de erro</small>
-                    </div>
-                    <div class="controleFormulario">
-                        <label for="numero">Número</label>
-                        <input type="text" placeholder="Digite o número da rua onde mora" id="i_cadastro_numero">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
-                        <small>Mensagem de erro</small>
-                    </div>
-                    <div class="controleFormulario">
-                        <label for="bairro">Bairro</label>
-                        <input type="text" placeholder="Digite o bairro onde mora" id="i_cadastro_bairro">
-                        <i class="fa-solid fa-circle-exclamation"></i>
-                        <i class="fa-solid fa-circle-check"></i>
-                        <small>Mensagem de erro</small>
-                    </div>
-                    <button onclick="validarEscolha()">Finalizar cadastro</button>
+                    
                 </div>
             </div>
             
         </div>
     </div>
-    <div class="imagem">
+    <div class="imagem" id="imagem_capa">
     </div>
 </div>
 <script 
     src="https://kit.fontawesome.com/c213e24a43.js" crossorigin="anonymous">
 </script>
+
 </body> 
 
 </html>

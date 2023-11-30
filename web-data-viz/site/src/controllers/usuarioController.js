@@ -66,12 +66,7 @@ function cadastrar(req, res) {
     var nome = req.body.nomeServer;
     var email = req.body.emailServer;
     var senha = req.body.senhaServer;
-    var empresaId = req.body.empresaServer;
     var dtNasc = req.body.dtNascServer;
-    var rua = req.body.ruaServer;
-    var cep = req.body.cepServer;
-    var bairro = req.body.bairroServer;
-    var numero = req.body.numeroServer;
     var jogador = req.body.jogadorServer;
     
 
@@ -82,25 +77,15 @@ function cadastrar(req, res) {
         res.status(400).send("Seu email está undefined!");
     } else if (senha == undefined) {
         res.status(400).send("Sua senha está undefined!");
-    } else if (empresaId == undefined) {
-        res.status(400).send("Sua empresa está undefined!");
     } else if (dtNasc == undefined) {
         res.status(400).send("Sua data de nascimento está undefined!"); 
-    }else if(rua == undefined) {
-        res.status(400).send("A rua está undefined!");
-    } else if(cep == undefined) {
-        res.status(400).send("O CEP está undefined!");
-    }  else if(bairro == undefined) {
-        res.status(400).send("O Bairro está undefined!");
-    }   else if(numero == undefined) {
-        res.status(400).send("O Número está undefined!");
-    }   else if(jogadorServer == undefined) {
+    } else if(jogador == undefined) {
         res.status(400).send("O Jogador está undefined!");
     }
         {
 
         // Passe os valores como parâmetro e vá para o arquivo usuarioModel.js
-        usuarioModel.cadastrar(nome, email, senha, dtNasc, rua, cep, bairro, numero, jogador)
+        usuarioModel.cadastrar(nome, email, senha, dtNasc, jogador)
             .then(
                 function (resultado) {
                     res.json(resultado);

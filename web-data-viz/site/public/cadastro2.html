@@ -6,6 +6,11 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Montserrat:400,700&display=swap">
     <script src="./js/cadastro.js"></script>
     <link rel="stylesheet" href="./css/cadastro2.css">
+
+    <!-- sweetAlert -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+
     <title>Cadastro</title>
 </head>
 <body>
@@ -73,9 +78,79 @@
 
     }
 
-    function mostrar() {
 
-        alert(jogadorSelecionado)
-    }
+    function cadastrar() {
+    // aguardar();
+
+    //Recupere o valor da nova input pelo nome do id
+    // Agora vá para o método fetch logo abaixo
+    var nomeVar = localStorage.getItem("nome");
+    var emailVar = localStorage.getItem("email");
+    var senhaVar = localStorage.getItem("senha");
+    // var confirmacaoSenhaVar = i_cadastro_confirmacao_senha.value;
+    // var empresaVar = listaEmpresas.value;
+    var dtNascVar = localStorage.getItem("dataNasc");
+    var ruaVar = localStorage.getItem("rua");
+    var cepVar = localStorage.getItem("cep");
+    var numeroVar = localStorage.getItem("numero");
+    var bairroVar = localStorage.getItem("bairro");
+    var jogadorVar = jogadorSelecionado;
+
+    console.log(dtNascVar);
+    console.log(ruaVar);
+    console.log(cepVar);
+    console.log(numeroVar)
+    console.log(bairroVar)
+    
+
+    // Enviando o valor da nova input
+    fetch("/usuarios/cadastrar", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        // crie um atributo que recebe o valor recuperado aqui
+        // Agora vá para o arquivo routes/usuario.js
+        nomeServer: nomeVar,
+        emailServer: emailVar,
+        senhaServer: senhaVar,
+        // empresaServer: empresaVar,
+        dtNascServer: dtNascVar,
+        jogadorServer: jogadorVar,
+        // ruaServer: ruaVar,
+        // cepServer: cepVar,
+        // bairroServer: bairroVar,
+        // numeroServer: numeroVar
+      }),
+    })
+      .then(function (resposta) {
+        console.log("resposta: ", resposta);
+        
+        if (resposta.ok) {
+            Swal.fire({
+              position: "top-end",
+              icon: "success",
+              title: "Seu cadastro foi realizado",
+              text: "Redirecionando para a pagina de login",
+              showConfirmButton: false,
+              timer: 1500
+              });
+            
+            setTimeout(() => {
+              window.location = "cadastro.html";
+            }, "2000");
+          
+        } else {
+          throw "Houve um erro ao tentar realizar o cadastro!";
+        }
+      })
+      .catch(function (resposta) {
+        console.log(`#ERRO: ${resposta}`);
+        // finalizarAguardar();
+      });
+
+    return false;
+  }
 
 </script>

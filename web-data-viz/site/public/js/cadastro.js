@@ -1,3 +1,4 @@
+
 function validarInformacoesUsuario() {
      nomeCadastro = i_cadastro_nome.value;
      dtNascCadastro = i_cadastro_nascimento.value;
@@ -40,7 +41,7 @@ function validarInformacoesUsuario() {
     } else {
 
     console.log(nomeCadastro, dtNascCadastro, emailCadastro, senhaCadastro)
-    cadastroEndereco();
+    validarEscolha()
     }
 
 }
@@ -74,7 +75,6 @@ function setSucesso(input) {
         div_botao_login.style.border = "none";
         form_cadastro.style.display = "flex";
         form_login.style.display = "none";
-        form_cadastroEndereco.style.display = "none"
 
     }
 
@@ -83,18 +83,15 @@ function setSucesso(input) {
         div_botao_cadastro.style.border = "none";
         form_cadastro.style.display = "none";
         form_login.style.display = "flex";
-        form_cadastroEndereco.style.display = "none"
     }
+
+    var imagens = ['../assets/imagens/Messi-copa.webp','../assets/imagens/cr7-capa.webp'];
 
     function underline() {
         div_botao_login.style.borderBottom = "2px solid white";
-    }
-
-    function cadastroEndereco() {
-        form_cadastroEndereco.style.display = "flex";
-        form_cadastro.style.display = "none"
 
     }
+
 
   // Minhas funções FIM
 
@@ -115,10 +112,6 @@ function setSucesso(input) {
       localStorage.setItem("email", emailCadastro);
       localStorage.setItem("senha", senhaCadastro);
       localStorage.setItem("dataNasc", dtNascCadastro);
-      localStorage.setItem("rua", ruaCadastro);
-      localStorage.setItem("cep", cepCadastro);
-      localStorage.setItem("numero", numeroCadastro);
-      localStorage.setItem("bairro", bairroCadastro);
       // localStorage.setItem("jogador", jogadorSelecionado)
   
       location.href = "cadastro2.html";
@@ -127,133 +120,6 @@ function setSucesso(input) {
       console.log(nomeCadastro, nascimentoCadastro, emailCadastro, senhaCadastro)
     }
 
-
-
-  function cadastrar() {
-    // aguardar();
-
-    //Recupere o valor da nova input pelo nome do id
-    // Agora vá para o método fetch logo abaixo
-    var nomeVar = localStorage.getItem("nome");
-    var emailVar = localStorage.getItem("email");
-    var senhaVar = localStorage.getItem("senha");
-    // var confirmacaoSenhaVar = i_cadastro_confirmacao_senha.value;
-    // var empresaVar = listaEmpresas.value;
-    var dtNascVar = localStorage.getItem("dataNasc");
-    var ruaVar = localStorage.getItem("rua");
-    var cepVar = localStorage.getItem("cep");
-    var numeroVar = localStorage.getItem("numero");
-    var bairroVar = localStorage.getItem("bairro");
-    var jogadorVar = jogadorSelecionado;
-
-    console.log(dtNascVar);
-    console.log(ruaVar);
-    console.log(cepVar);
-    console.log(numeroVar)
-    console.log(bairroVar)
-
-    // if (
-    //   nomeVar == "" ||
-    //   emailVar == "" ||
-    //   senhaVar == "" ||
-    //   confirmacaoSenhaVar == "" ||
-    //   empresaVar == "" ||
-    //   dtNascVar == ""
-    // ) {
-    //   // cardErro.style.display = "block";
-    //   // mensagem_erro.innerHTML =
-    //   //   "(Mensagem de erro para todos os campos em branco)";
-
-    //   // finalizarAguardar();
-    //   return false;
-    // } else {
-    //   if(nomeVar.length <= 1) {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML =
-    //     "O campo nome tem que ter mais de 1 letra";
-    //     // finalizarAguardar();
-    //     return false;
-    //   }
-    //   if(emailVar.indexOf("@") == -1 || emailVar.indexOf(".") == -1) {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML =
-    //     "O campo email tem que conter um `@` e um `.`";
-    //     // finalizarAguardar();
-    //     return false;
-    //   }
-    //   if(senhaVar.length <= 6) {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML =
-    //     "O campo senha tem que conter mais de 6 caractereres"
-    //     // finalizarAguardar();
-    //     return false;
-    //   }
-    //   if(confirmacaoSenhaVar != senhaVar) {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML =
-    //     "O campo `Confirmaçao da Senha` deve ser igual ao campo `Senha`";
-    //     // finalizarAguardar();
-    //     return false;
-    //   }
-    //   if(dtNascVar.length != 14) {
-    //     cardErro.style.display = "block";
-    //     mensagem_erro.innerHTML =
-    //     "O campo CPF tem que ter 14 caracteres";
-    //     // finalizarAguardar();
-    //     return false;
-    //   }
-    //   setInterval(sumirMensagem, 5000);
-    // }
-    
-
-    // Enviando o valor da nova input
-    fetch("/usuarios/cadastrar", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        // crie um atributo que recebe o valor recuperado aqui
-        // Agora vá para o arquivo routes/usuario.js
-        nomeServer: nomeVar,
-        emailServer: emailVar,
-        senhaServer: senhaVar,
-        // empresaServer: empresaVar,
-        dtNascServer: dtNascVar,
-        jogadorServer: jogadorVar,
-        // ruaServer: ruaVar,
-        // cepServer: cepVar,
-        // bairroServer: bairroVar,
-        // numeroServer: numeroVar
-      }),
-    })
-      .then(function (resposta) {
-        console.log("resposta: ", resposta);
-        
-        setTimeout(() => {
-          window.location = "cadastro.html";
-        }, "2000");
-
-        if (resposta.ok) {
-          cardErro.style.display = "block";
-
-          mensagem_erro.innerHTML =
-            "Cadastro realizado com sucesso! Redirecionando para tela de Login...";
-
-
-          limparFormulario();
-          // finalizarAguardar();
-        } else {
-          throw "Houve um erro ao tentar realizar o cadastro!";
-        }
-      })
-      .catch(function (resposta) {
-        console.log(`#ERRO: ${resposta}`);
-        // finalizarAguardar();
-      });
-
-    return false;
-  }
 
   function listar() {
     fetch("/empresas/listar", {
@@ -284,7 +150,11 @@ function setSucesso(input) {
     var senhaVar = senha_input.value;
 
     if (emailVar == "" || senhaVar == "") {
-        alert("Preencha os campos!")
+      Swal.fire({
+        title: "Preencha os campos",
+        text: "Não se esqueça de preencher os campos para conseguir acessar sua conta",
+        icon: "warning"
+      });
         // cardErro.style.display = "block"
         // mensagem_erro.innerHTML = "(Mensagem de erro para todos os campos em branco)";
         // finalizarAguardar();
@@ -328,6 +198,14 @@ function setSucesso(input) {
             });
 
         } else {
+          Swal.fire({
+            position: "top-end",
+            icon: "error",
+            title: "Usuário ou senha inválidos",
+            text: "Insira um email e senha válidos",
+            showConfirmButton: false,
+            timer: 1500
+            });
 
             console.log("Houve um erro ao tentar realizar o login!");
 

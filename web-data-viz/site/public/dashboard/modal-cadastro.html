@@ -3,6 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.10.1/dist/sweetalert2.all.min.js"></script>
+
     <title>Document</title>
     <style>
         .modal{
@@ -17,11 +21,21 @@
     </style>
 </head>
 <body>
-    <div class="modal">
-         <span>Partidas:</span> <input type="text"><br>
-         <span>Gols:</span> <input type="text"><br>
-        <span>Assistencias:</span> <input type="text"><br>
-        <button>Cadastrar</button>
-    </div>
+    <button onclick="mostrarAlerta()">Clica aqui</button>
 </body>
 </html>
+
+<script>
+function mostrarAlerta() {
+
+    Swal.fire({
+        position: "top-end",
+        icon: "success",
+        title: "Your work has been saved",
+        showConfirmButton: false,
+        timer: 1500
+        });
+
+}
+
+</script>
