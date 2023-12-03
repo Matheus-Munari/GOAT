@@ -38,7 +38,7 @@
     <script src="https://kit.fontawesome.com/9f7414eb10.js" crossorigin="anonymous"></script>
 </head>
 
-<body onload="obterContagemPartidas(), mudarFoto(), obterInfosUsuarios()">
+<body onload="obterContagemPartidas(), mudarFoto(), obterInfosUsuarios(), buscarPpjGoats()">
     <div class="gridContainer">
 
         <!-- Header -->
@@ -147,8 +147,8 @@
                         <button id="btn_cr7" onclick="mudarJogador(2)">CR7</button> -->
                     </div>
                     <div class="main-infos" id="infos_messi">
-                        <div class="img-nome">
-                            <img src="../assets/imagens/imagem-messi-de-perfil.png">
+                        <div class="img-nome" id="div_foto">
+                            <!-- <img src="../assets/imagens/imagem-oficial-cr7.jpg"> -->
                             <span id="nome_user">Lionel Messi</span>
                         </div>
                         <div class="infos-jog">
@@ -330,7 +330,6 @@
 
     }
 
-    var ppj = 0;
 
     function atualizarCards() {
         ppj = (contGols + contAssistencias) / contPartidas;
@@ -361,6 +360,7 @@
         // console.log(mesNasc)
         // console.log(diaNasc)
         // console.log(idade)
+        div_foto.innerHTML = ``;
 
         if(mes - mesNasc == 0) {
             if(dia - diaNasc < 0) {
@@ -372,8 +372,16 @@
 
         var nomeUser = infosUsuario[0].nome
         var alturaUser = infosUsuario[0].altura
+        var foto = ``;
+        if(sessionStorage.FK_USUARIO == 1) {
+            foto = `<img src="../assets/imagens/imagem-messi-de-perfil.png">`
+        }else {
+            foto = `<img src="../assets/imagens/imagem-oficial-cr7.jpg">`;
+        }
 
-        nome_user.innerText = nomeUser;
+        div_foto.innerHTML += foto
+        div_foto.innerHTML += nomeUser
+        // nome_user.innerText = nomeUser;
         idade_user.innerText = `${idade} anos`
         altura_user.innerText = alturaUser 
 
